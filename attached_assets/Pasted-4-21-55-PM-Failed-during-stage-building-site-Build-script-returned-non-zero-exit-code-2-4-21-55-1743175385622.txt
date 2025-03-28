@@ -1,0 +1,78 @@
+4:21:55 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2
+4:21:55 PM: Netlify Build                                                 
+4:21:55 PM: ────────────────────────────────────────────────────────────────
+4:21:55 PM: ​
+4:21:55 PM: ❯ Version
+4:21:55 PM:   @netlify/build 30.0.6
+4:21:55 PM: ​
+4:21:55 PM: ❯ Flags
+4:21:55 PM:   accountId: 67dc4ec32b79cd3c5e86872c
+4:21:55 PM:   baseRelDir: true
+4:21:55 PM:   buildId: 67e6be718799fa490a7f8563
+4:21:55 PM:   deployId: 67e6be718799fa490a7f8565
+4:21:55 PM: ​
+4:21:55 PM: ❯ Current directory
+4:21:55 PM:   /opt/build/repo
+4:21:55 PM: ​
+4:21:55 PM: ❯ Config file
+4:21:55 PM:   /opt/build/repo/netlify.toml
+4:21:55 PM: ​
+4:21:55 PM: ❯ Context
+4:21:55 PM:   production
+4:21:55 PM: ​
+4:21:55 PM: build.command from netlify.toml                               
+4:21:55 PM: ────────────────────────────────────────────────────────────────
+4:21:55 PM: ​
+4:21:55 PM: $ node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck
+4:21:55 PM: file:///opt/build/repo/netlify-build.js:1
+4:21:55 PM: const fs = require('fs');
+4:21:55 PM:            ^
+4:21:55 PM: ReferenceError: require is not defined in ES module scope, you can use import instead
+4:21:55 PM: This file is being treated as an ES module because it has a '.js' file extension and '/opt/build/repo/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+4:21:55 PM:     at file:///opt/build/repo/netlify-build.js:1:12
+4:21:55 PM:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+4:21:55 PM:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+4:21:55 PM:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+4:21:55 PM: Node.js v20.19.0
+4:21:55 PM: ​
+4:21:55 PM: "build.command" failed                                        
+4:21:55 PM: ────────────────────────────────────────────────────────────────
+4:21:55 PM: ​
+4:21:55 PM:   Error message
+4:21:55 PM:   Command failed with exit code 1: node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck
+4:21:55 PM: ​
+4:21:55 PM:   Error location
+4:21:55 PM:   In build.command from netlify.toml:
+4:21:55 PM:   node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck
+4:21:55 PM: ​
+4:21:55 PM:   Resolved config
+4:21:55 PM:   build:
+4:21:55 PM:     base: /opt/build/repo
+4:21:55 PM:     command: node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck
+4:21:55 PM:     commandOrigin: config
+4:21:55 PM:     environment:
+4:21:55 PM:       - CORS_ORIGIN
+4:21:55 PM:       - DATABASE_URL
+4:21:55 PM:       - SESSION_SECRET
+4:21:55 PM:       - NODE_VERSION
+4:21:55 PM:       - NETLIFY
+4:21:55 PM:     publish: /opt/build/repo/dist/client
+4:21:55 PM:     publishOrigin: config
+4:21:55 PM:   functions:
+4:21:55 PM:     '*':
+4:21:55 PM:       node_bundler: esbuild
+4:21:55 PM:   functionsDirectory: /opt/build/repo/netlify/functions
+4:21:55 PM:   redirects:
+4:21:55 PM:     - from: /api/*
+      status: 200
+      to: /.netlify/functions/api/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+4:21:55 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+4:21:55 PM: Failing build: Failed to build site
+4:21:56 PM: Finished processing build request in 23.865s
+Deploying
+
+Cleanup
