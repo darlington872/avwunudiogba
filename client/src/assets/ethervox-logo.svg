@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background glow effect -->
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="4" result="blur" />
+    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+  </filter>
+  
+  <!-- Linear gradient for text -->
+  <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#ff00cc" />
+    <stop offset="50%" stop-color="#3300ff" />
+    <stop offset="100%" stop-color="#8a00c2" />
+  </linearGradient>
+  
+  <!-- Logo symbol (hexagon with radio wave) -->
+  <g transform="translate(10, 10)" filter="url(#glow)">
+    <polygon points="30,0 60,17 60,51 30,68 0,51 0,17" fill="#150035" stroke="url(#textGradient)" stroke-width="2" />
+    <path d="M15,34 C20,24 25,44 30,34 C35,24 40,44 45,34" fill="none" stroke="url(#textGradient)" stroke-width="2" />
+    <circle cx="30" cy="34" r="3" fill="url(#textGradient)" />
+  </g>
+  
+  <!-- Text: ETHERVOX -->
+  <text x="80" y="45" font-family="Arial, sans-serif" font-weight="bold" font-size="28" fill="url(#textGradient)" filter="url(#glow)">ETHERVOX</text>
+  
+  <!-- Text: SMS -->
+  <text x="230" y="45" font-family="Arial, sans-serif" font-weight="bold" font-size="28" fill="url(#textGradient)" filter="url(#glow)">SMS</text>
+</svg>

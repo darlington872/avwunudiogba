@@ -52,7 +52,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex bg-black font-sans antialiased">
+    <div className="min-h-screen flex dashboard-texture-bg font-sans antialiased">
       {/* Use sidebar on larger screens */}
       <div className="hidden md:block">
         <Sidebar 
@@ -64,7 +64,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       
       <div className="flex-1 overflow-hidden">
         {/* Mobile Header */}
-        <div className="md:hidden bg-black border-b border-purple-600/40 p-4 flex items-center justify-between backdrop-blur-md bg-opacity-80 shadow-md sticky top-0 z-30">
+        <div className="md:hidden glass-nav p-3 flex items-center justify-between shadow-md sticky top-0 z-30">
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
@@ -74,7 +74,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -87,11 +87,15 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 />
               </svg>
             </button>
-            <h1 className="text-lg font-bold vibrant-gradient-text">ETHERVOX SMS</h1>
+            <img 
+              src="/src/assets/ethervox-logo.svg" 
+              alt="Ethervox SMS" 
+              className="h-8"
+            />
           </div>
           {user && (
-            <div className="flex items-center space-x-3">
-              <span className="px-3 py-1 text-xs leading-5 font-semibold rounded-full bg-purple-900/30 text-purple-300 border border-purple-600/30">
+            <div className="flex items-center space-x-2">
+              <span className="px-2 py-1 text-xs leading-5 font-semibold rounded-full bg-purple-900/30 text-purple-300 border border-purple-600/30">
                 ₦{user.balance.toFixed(2)}
               </span>
               <span className="hidden sm:inline-block text-purple-400 text-sm font-medium">{user.username}</span>
@@ -100,10 +104,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         </div>
 
         {/* Content Area - Added bottom padding on mobile for the bottom nav */}
-        <div className="overflow-auto h-screen md:h-auto pb-24 pt-0 md:pt-6 px-3 md:px-6 bg-black text-white">
+        <div className="overflow-auto h-screen md:h-auto pb-24 pt-0 md:pt-6 px-3 md:px-6 text-white">
           <div className="py-4 md:py-6">
             <div className="flex flex-wrap justify-between items-center mb-6">
-              <h1 className="text-xl md:text-2xl font-bold vibrant-gradient-text my-2">{title}</h1>
+              <h1 className="text-lg md:text-xl font-bold text-white my-2">{title}</h1>
               {adminMode && (
                 <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-red-900/40 to-purple-900/40 text-red-400 border border-red-500/30 shadow-inner shadow-red-700/10">
                   Admin Mode

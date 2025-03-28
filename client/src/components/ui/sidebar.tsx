@@ -53,8 +53,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, adminMode = false })
         
         {/* Content with relative position to be above the effects */}
         <div className="relative z-10 flex-1 flex flex-col h-full overflow-y-auto">
-          <div className="flex items-center justify-between px-4 mb-8">
-            <h1 className="text-lg font-bold vibrant-gradient-text">ETHERVOX SMS</h1>
+          <div className="flex items-center justify-between px-4 mb-6">
+            <div className="flex items-center">
+              <img 
+                src="/src/assets/ethervox-logo.svg" 
+                alt="Ethervox SMS" 
+                className="h-8" 
+              />
+            </div>
             <button
               onClick={onClose}
               type="button"
@@ -63,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, adminMode = false })
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

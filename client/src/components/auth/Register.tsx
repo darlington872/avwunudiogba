@@ -70,8 +70,15 @@ const Register: React.FC = () => {
   return (
     <div className="py-6 md:py-10 max-w-md mx-auto">
       <div className="text-center mb-6 md:mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-white neon-text">Create Account</h1>
-        <p className="mt-2 md:mt-3 text-purple-300">Join our service to get WhatsApp numbers</p>
+        <div className="flex justify-center mb-3">
+          <img 
+            src="/src/assets/ethervox-logo.svg" 
+            alt="Ethervox SMS" 
+            className="h-12 md:h-14" 
+          />
+        </div>
+        <h1 className="text-xl md:text-2xl font-bold text-white">Create Account</h1>
+        <p className="mt-2 text-purple-300 text-sm">Join our service to get WhatsApp numbers</p>
       </div>
 
       <div className="glass-card rounded-lg p-4 md:p-6 border border-purple-500/30">
