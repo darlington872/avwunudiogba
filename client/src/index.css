@@ -69,6 +69,18 @@
     background: black;
     background-attachment: fixed;
   }
+  
+  /* Auth Texture Background */
+  .auth-texture-bg {
+    background-color: #0a0020;
+    background-image: 
+      radial-gradient(circle at 50% 100%, rgba(90, 0, 190, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(70, 0, 150, 0.1) 0%, transparent 55%),
+      repeating-linear-gradient(45deg, rgba(60, 0, 130, 0.05) 0px, rgba(60, 0, 130, 0.05) 1px, transparent 1px, transparent 25px),
+      repeating-linear-gradient(135deg, rgba(60, 0, 130, 0.05) 0px, rgba(60, 0, 130, 0.05) 1px, transparent 1px, transparent 25px),
+      linear-gradient(90deg, #090018, #150035);
+    background-attachment: fixed;
+  }
 
   /* Remove any white backgrounds that might be added by components */
   div, section, main, header, footer, nav, aside {

@@ -48,23 +48,27 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="py-10 max-w-md mx-auto">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-800">Welcome Back</h1>
-        <p className="mt-3 text-gray-600">Sign in to access your account</p>
+    <div className="py-6 md:py-10 max-w-md mx-auto">
+      <div className="text-center mb-6 md:mb-10">
+        <h1 className="text-2xl md:text-3xl font-bold text-white neon-text">Welcome Back</h1>
+        <p className="mt-2 md:mt-3 text-purple-300">Sign in to access your account</p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="glass-card rounded-lg p-4 md:p-6 border border-purple-500/30">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-purple-200">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="your@email.com" {...field} />
+                    <Input 
+                      placeholder="your@email.com" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -76,16 +80,21 @@ const Login: React.FC = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-purple-200">Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input 
+                      type="password" 
+                      placeholder="••••••••" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <FormField
                 control={form.control}
                 name="rememberMe"
@@ -95,10 +104,11 @@ const Login: React.FC = () => {
                       id="rememberMe"
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      className="border-purple-500 data-[state=checked]:bg-purple-600"
                     />
                     <label
                       htmlFor="rememberMe"
-                      className="text-sm text-gray-700 cursor-pointer"
+                      className="text-sm text-purple-200 cursor-pointer"
                     >
                       Remember me
                     </label>
@@ -108,7 +118,7 @@ const Login: React.FC = () => {
 
               <div className="text-sm">
                 <Link href="/forgot-password">
-                  <a className="text-primary-600 hover:text-primary-500">
+                  <a className="text-purple-400 hover:text-purple-300 transition-colors">
                     Forgot password?
                   </a>
                 </Link>
@@ -117,7 +127,7 @@ const Login: React.FC = () => {
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white border-none"
               disabled={isLoading}
             >
               {isLoading ? "Signing in..." : "Sign in"}
@@ -128,10 +138,10 @@ const Login: React.FC = () => {
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t border-purple-800/50"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">
+              <span className="px-2 glass-effect rounded text-purple-300">
                 Don't have an account?
               </span>
             </div>
@@ -139,7 +149,7 @@ const Login: React.FC = () => {
 
           <div className="mt-6">
             <Link href="/register">
-              <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+              <a className="w-full inline-flex justify-center py-2 px-4 border border-purple-600/30 rounded-md shadow-sm backdrop-blur-sm bg-purple-900/20 text-sm font-medium text-purple-300 hover:bg-purple-800/30 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500/50">
                 Register now
               </a>
             </Link>

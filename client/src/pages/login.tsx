@@ -48,15 +48,15 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen flex font-sans antialiased">
       <Sidebar isOpen={false} onClose={() => {}} />
       
-      <div className="flex-1 overflow-hidden bg-black">
+      <div className="flex-1 overflow-hidden auth-texture-bg">
         <div className="overflow-auto h-screen">
           <div className="container mx-auto px-4 py-6">
             {/* Site Name and Stats - First Elements */}
             <div className="text-center mb-8">
               <h1 className="text-5xl lg:text-6xl font-extrabold mb-4 vibrant-gradient-text">
-                ETHERDOXSHEFZYSMS
+                ETHERVOX SMS
               </h1>
-              <p className="text-xl text-purple-300 mb-4">The premium virtual number marketplace with integrated rewards system</p>
+              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">The premium virtual number marketplace with integrated rewards system</p>
             </div>
             
             {/* Market Stats - Second Element */}

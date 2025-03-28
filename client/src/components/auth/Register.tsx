@@ -68,23 +68,27 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="py-10 max-w-md mx-auto">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-800">Create Account</h1>
-        <p className="mt-3 text-gray-600">Join our service to get WhatsApp numbers</p>
+    <div className="py-6 md:py-10 max-w-md mx-auto">
+      <div className="text-center mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-white neon-text">Create Account</h1>
+        <p className="mt-2 md:mt-3 text-purple-300">Join our service to get WhatsApp numbers</p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="glass-card rounded-lg p-4 md:p-6 border border-purple-500/30">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 md:space-y-5">
             <FormField
               control={form.control}
               name="fullName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel className="text-purple-200">Full Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input 
+                      placeholder="John Doe" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500" 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,9 +100,13 @@ const Register: React.FC = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="text-purple-200">Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="johndoe" {...field} />
+                    <Input 
+                      placeholder="johndoe" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500" 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,9 +118,13 @@ const Register: React.FC = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-purple-200">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="your@email.com" {...field} />
+                    <Input 
+                      placeholder="your@email.com" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500" 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -124,9 +136,14 @@ const Register: React.FC = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-purple-200">Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input 
+                      type="password" 
+                      placeholder="••••••••" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500" 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,9 +155,14 @@ const Register: React.FC = () => {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel className="text-purple-200">Confirm Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input 
+                      type="password" 
+                      placeholder="••••••••" 
+                      {...field} 
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500" 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,11 +174,12 @@ const Register: React.FC = () => {
               name="referralCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Referral Code (Optional)</FormLabel>
+                  <FormLabel className="text-purple-200">Referral Code (Optional)</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter referral code if you have one"
                       {...field}
+                      className="bg-gray-900/50 border-purple-600/30 text-white placeholder:text-gray-500" 
                     />
                   </FormControl>
                   <FormMessage />
@@ -173,16 +196,17 @@ const Register: React.FC = () => {
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      className="border-purple-500 data-[state=checked]:bg-purple-600"
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>
+                    <FormLabel className="text-purple-200">
                       I agree to the{" "}
-                      <a href="#" className="text-primary-600 hover:text-primary-500">
+                      <a href="#" className="text-purple-400 hover:text-purple-300 transition-colors">
                         Terms
                       </a>{" "}
                       and{" "}
-                      <a href="#" className="text-primary-600 hover:text-primary-500">
+                      <a href="#" className="text-purple-400 hover:text-purple-300 transition-colors">
                         Privacy Policy
                       </a>
                     </FormLabel>
@@ -194,7 +218,7 @@ const Register: React.FC = () => {
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white border-none mt-2"
               disabled={isLoading}
             >
               {isLoading ? "Creating Account..." : "Create Account"}
@@ -205,10 +229,10 @@ const Register: React.FC = () => {
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t border-purple-800/50"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">
+              <span className="px-2 glass-effect rounded text-purple-300">
                 Already have an account?
               </span>
             </div>
@@ -216,7 +240,7 @@ const Register: React.FC = () => {
 
           <div className="mt-6">
             <Link href="/login">
-              <a className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+              <a className="w-full inline-flex justify-center py-2 px-4 border border-purple-600/30 rounded-md shadow-sm backdrop-blur-sm bg-purple-900/20 text-sm font-medium text-purple-300 hover:bg-purple-800/30 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500/50">
                 Sign in instead
               </a>
             </Link>
