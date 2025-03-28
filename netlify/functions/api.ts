@@ -1,3 +1,9 @@
+// Register module alias for path resolution
+import '../setup-aliases.js';
+
+// Import dotenv early to load environment variables
+import 'dotenv/config';
+
 import express, { Request, Response, NextFunction } from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
@@ -6,7 +12,6 @@ import { registerRoutes } from '../../server/routes';
 import { DatabaseStorage } from '../../server/databaseStorage';
 import session from 'express-session';
 import passport from 'passport';
-import 'dotenv/config';
 
 // Initialize the app
 const app = express();

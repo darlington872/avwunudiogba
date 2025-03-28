@@ -13,7 +13,7 @@ import {
   insertServiceSchema,
   insertCountrySchema,
   insertAiChatSchema
-} from "@shared/schema";
+} from "../shared/schema";
 import { setupAuth } from "./auth";
 import { ZodError } from "zod";
 import crypto from "crypto";

@@ -31,7 +31,9 @@ const packageJson = {
     "drizzle-orm": "^0.29.5",
     "nanoid": "^5.0.6",
     "cors": "^2.8.5",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "tsconfig-paths": "^4.2.0",
+    "module-alias": "^2.2.3"
   }
 };
 
@@ -39,5 +41,13 @@ fs.writeFileSync(
   path.join(functionsDir, 'package.json'),
   JSON.stringify(packageJson, null, 2)
 );
+
+// Copy the setup-aliases.js file to the functions directory
+const setupAliasesPath = path.join(__dirname, 'netlify', 'setup-aliases.js');
+const destSetupAliasesPath = path.join(functionsDir, 'setup-aliases.js');
+if (fs.existsSync(setupAliasesPath)) {
+  fs.copyFileSync(setupAliasesPath, destSetupAliasesPath);
+  console.log('Module alias setup file copied successfully');
+}
 
 console.log('Netlify build setup completed successfully.');

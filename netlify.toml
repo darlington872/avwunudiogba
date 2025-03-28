@@ -1,5 +1,5 @@
 [build]
-  command = "node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck"
+  command = "node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json"
   publish = "dist/client"
   functions = "netlify/functions"
 
