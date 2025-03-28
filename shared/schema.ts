@@ -21,16 +21,23 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const insertUserSchema = createInsertSchema(users).omit({
-  id: true,
-  referralCount: true,
-  isAdmin: true,
-  isVerified: true,
-  isBanned: true,
-  balance: true,
-  referralWalletBalance: true,
-  createdAt: true
-});
+export const insertUserSchema = createInsertSchema(users)
+  .omit({
+    id: true,
+    referralCount: true,
+    isAdmin: true,
+    isVerified: true,
+    isBanned: true,
+    balance: true,
+    referralWalletBalance: true,
+    createdAt: true,
+    kycStatus: true,
+    referralCode: true
+  })
+  .extend({
+    referredBy: z.string().optional(),
+    kycStatus: z.enum(["pending", "approved", "rejected"]).optional()
+  });
 
 // Service types for messaging apps
 export const serviceTypes = [
