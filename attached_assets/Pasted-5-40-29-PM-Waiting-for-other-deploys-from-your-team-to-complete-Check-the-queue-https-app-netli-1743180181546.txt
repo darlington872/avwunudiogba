@@ -1,0 +1,347 @@
+5:40:29 PM: Waiting for other deploys from your team to complete. Check the queue: https://app.netlify.com/teams/mollyxrmolly1234/builds
+5:41:34 PM: build-image version: 59029cc38debec12b365d8cde2431251b878d6bf (noble)
+5:41:34 PM: buildbot version: 911e38b4db82bf5cd08627b366a88d99622b3aab
+5:41:34 PM: Building without cache
+5:41:34 PM: Starting to prepare the repo for build
+5:41:34 PM: No cached dependencies found. Cloning fresh repo
+5:41:34 PM: git clone --filter=blob:none https://github.com/darlington872/avwunudiogba
+5:41:34 PM: Preparing Git Reference refs/heads/main
+5:41:36 PM: Custom build path detected. Proceeding with the specified path: ''
+5:41:36 PM: Starting to install dependencies
+5:41:36 PM: Python version set to 3.13.2
+5:41:37 PM: Ruby version set to 2.7.2
+5:41:37 PM: mise go@1.19         install
+5:41:37 PM: mise go@1.19         download go1.19.linux-amd64.tar.gz
+5:41:39 PM: mise go@1.19         checksum go1.19.linux-amd64.tar.gz
+5:41:39 PM: mise go@1.19         extract go1.19.linux-amd64.tar.gz
+5:41:42 PM: mise go@1.19         go version
+5:41:42 PM: mise go@1.19         go version go1.19 linux/amd64
+5:41:42 PM: mise go@1.19       ✓ installed
+5:41:42 PM: Go version set to 1.19
+5:41:43 PM: Using PHP version 8.3
+5:41:45 PM: Downloading and installing node v20.19.0...
+5:41:45 PM: Downloading https://nodejs.org/dist/v20.19.0/node-v20.19.0-linux-x64.tar.xz...
+5:41:45 PM: Computing checksum with sha256sum
+5:41:45 PM: Checksums matched!
+5:41:48 PM: Now using node v20.19.0 (npm v10.8.2)
+5:41:48 PM: Enabling Node.js Corepack
+5:41:48 PM: Started restoring cached build plugins
+5:41:48 PM: Finished restoring cached build plugins
+5:41:48 PM: Started restoring cached corepack dependencies
+5:41:48 PM: Finished restoring cached corepack dependencies
+5:41:48 PM: No npm workspaces detected
+5:41:48 PM: Started restoring cached node modules
+5:41:48 PM: Finished restoring cached node modules
+5:41:48 PM: Installing npm packages using npm version 10.8.2
+5:41:51 PM: npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+5:41:51 PM: npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+5:41:55 PM: added 486 packages, and audited 487 packages in 7s
+5:41:55 PM: 63 packages are looking for funding
+5:41:55 PM:   run `npm fund` for details
+5:41:55 PM: 8 moderate severity vulnerabilities
+5:41:55 PM: To address issues that do not require attention, run:
+5:41:55 PM:   npm audit fix
+5:41:55 PM: To address all issues (including breaking changes), run:
+5:41:55 PM:   npm audit fix --force
+5:41:55 PM: Run `npm audit` for details.
+5:41:55 PM: npm packages installed
+5:41:56 PM: Successfully installed dependencies
+5:41:56 PM: Starting build script
+5:41:57 PM: Detected 1 framework(s)
+5:41:57 PM: "vite" at version "5.4.14"
+5:41:57 PM: Section completed: initializing
+5:41:58 PM: ​
+5:41:58 PM: Netlify Build                                                 
+5:41:58 PM: ────────────────────────────────────────────────────────────────
+5:41:58 PM: ​
+5:41:58 PM: ❯ Version
+5:41:58 PM:   @netlify/build 30.0.6
+5:41:58 PM: ​
+5:41:58 PM: ❯ Flags
+5:41:58 PM:   accountId: 67dc4ec32b79cd3c5e86872c
+5:41:58 PM:   baseRelDir: true
+5:41:58 PM:   buildId: 67e6d0fdbe4bc6795789e11e
+5:41:58 PM:   deployId: 67e6d0fdbe4bc6795789e120
+5:41:58 PM: ​
+5:41:58 PM: ❯ Current directory
+5:41:58 PM:   /opt/build/repo
+5:41:58 PM: ​
+5:41:58 PM: ❯ Config file
+5:41:58 PM:   /opt/build/repo/netlify.toml
+5:41:58 PM: ​
+5:41:58 PM: ❯ Context
+5:41:58 PM:   production
+5:41:58 PM: ​
+5:41:58 PM: build.command from netlify.toml                               
+5:41:58 PM: ────────────────────────────────────────────────────────────────
+5:41:58 PM: ​
+5:41:58 PM: $ node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json --outDir netlify/functions
+5:41:58 PM: Module alias setup file copied successfully
+5:41:58 PM: Netlify build setup completed successfully.
+5:41:58 PM: > rest-express@1.0.0 build
+5:41:58 PM: > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+5:41:59 PM: vite v5.4.14 building for production...
+5:41:59 PM: transforming...
+5:42:02 PM: ✓ 2069 modules transformed.
+5:42:02 PM: rendering chunks...
+5:42:02 PM: computing gzip size...
+5:42:02 PM: ../dist/public/index.html                                  2.16 kB │ gzip:   0.89 kB
+5:42:02 PM: ../dist/public/assets/ethervox-globe-small-t1wqFhaA.svg    2.36 kB │ gzip:   0.71 kB
+5:42:02 PM: ../dist/public/assets/index-B23F95P1.css                  94.57 kB │ gzip:  15.72 kB
+5:42:02 PM: ../dist/public/assets/index-CLY6yKko.js                  617.58 kB │ gzip: 174.57 kB
+5:42:02 PM: 
+5:42:02 PM: (!) Some chunks are larger than 500 kB after minification. Consider:
+5:42:02 PM: - Using dynamic import() to code-split the application
+5:42:02 PM: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+5:42:02 PM: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+5:42:02 PM: ✓ built in 3.56s
+5:42:02 PM:   dist/index.js  70.2kb
+5:42:02 PM: ⚡ Done in 8ms
+5:42:05 PM: server/databaseStorage.ts(283,20): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(285,18): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(286,27): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(287,68): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(302,28): error TS2339: Property 'username' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(303,25): error TS2339: Property 'email' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(304,28): error TS2339: Property 'password' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(305,28): error TS2339: Property 'fullName' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(307,30): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(348,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { number: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; price: number | SQL<unknown> | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'service' does not exist in type '{ number: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; price: number | SQL<unknown> | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { number: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; price: number | SQL<unknown> | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'number' does not exist in type '{ number: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; price: number | SQL<unknown> | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(349,29): error TS2339: Property 'number' does not exist on type '{ service?: "WhatsApp" | "Telegram" | "Signal" | "WeChat" | "Facebook" | "Viber" | "Line"; stockCount?: number; }'.
+5:42:05 PM: server/databaseStorage.ts(350,30): error TS2339: Property 'country' does not exist on type '{ service?: "WhatsApp" | "Telegram" | "Signal" | "WeChat" | "Facebook" | "Viber" | "Line"; stockCount?: number; }'.
+5:42:05 PM: server/databaseStorage.ts(351,28): error TS2339: Property 'price' does not exist on type '{ service?: "WhatsApp" | "Telegram" | "Signal" | "WeChat" | "Facebook" | "Viber" | "Line"; stockCount?: number; }'.
+5:42:05 PM: server/databaseStorage.ts(410,36): error TS2339: Property 'isReferralReward' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(414,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { userId: number | SQL<unknown> | Placeholder<string, any>; phoneNumberId: number | SQL<unknown> | Placeholder<string, any>; paymentMethod: string | SQL<...> | Placeholder<...>; totalAmount: number | ... 1 more ... | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'status' does not exist in type '{ userId: number | SQL<unknown> | Placeholder<string, any>; phoneNumberId: number | SQL<unknown> | Placeholder<string, any>; paymentMethod: string | SQL<...> | Placeholder<...>; totalAmount: number | ... 1 more ... | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { userId: number | SQL<unknown> | Placeholder<string, any>; phoneNumberId: number | SQL<unknown> | Placeholder<string, any>; paymentMethod: string | SQL<...> | Placeholder<...>; totalAmount: number | ... 1 more ... | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'userId' does not exist in type '{ userId: number | SQL<unknown> | Placeholder<string, any>; phoneNumberId: number | SQL<unknown> | Placeholder<string, any>; paymentMethod: string | SQL<...> | Placeholder<...>; totalAmount: number | ... 1 more ... | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(415,23): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(416,30): error TS2339: Property 'phoneNumberId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(417,30): error TS2339: Property 'paymentMethod' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(418,28): error TS2339: Property 'totalAmount' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(430,59): error TS2339: Property 'phoneNumberId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(459,23): error TS2353: Object literal may only specify known properties, and 'updatedAt' does not exist in type '{ userId?: number | SQL<unknown> | PgColumn<ColumnBaseConfig<ColumnDataType, string>, {}, {}>; phoneNumberId?: number | SQL<unknown> | PgColumn<...>; paymentMethod?: string | ... 1 more ... | PgColumn<...>; totalAmount?: number | ... 1 more ... | PgColumn<...>; }'.
+5:42:05 PM: server/databaseStorage.ts(470,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { userId: number | SQL<unknown> | Placeholder<string, any>; amount: number | SQL<unknown> | Placeholder<string, any>; method: string | SQL<unknown> | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'status' does not exist in type '{ userId: number | SQL<unknown> | Placeholder<string, any>; amount: number | SQL<unknown> | Placeholder<string, any>; method: string | SQL<unknown> | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { userId: number | SQL<unknown> | Placeholder<string, any>; amount: number | SQL<unknown> | Placeholder<string, any>; method: string | SQL<unknown> | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'userId' does not exist in type '{ userId: number | SQL<unknown> | Placeholder<string, any>; amount: number | SQL<unknown> | Placeholder<string, any>; method: string | SQL<unknown> | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(471,25): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(472,25): error TS2339: Property 'amount' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(473,25): error TS2339: Property 'method' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(504,23): error TS2353: Object literal may only specify known properties, and 'updatedAt' does not exist in type '{ userId?: number | SQL<unknown> | PgColumn<ColumnBaseConfig<ColumnDataType, string>, {}, {}>; amount?: number | SQL<unknown> | PgColumn<ColumnBaseConfig<...>, {}, {}>; method?: string | ... 1 more ... | PgColumn<...>; }'.
+5:42:05 PM: server/databaseStorage.ts(523,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { fullName: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<...>; ... 6 more ...; selfie: string | ... 1 more ... | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'status' does not exist in type '{ fullName: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<...>; ... 6 more ...; selfie: string | ... 1 more ... | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { fullName: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<...>; ... 6 more ...; selfie: string | ... 1 more ... | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'userId' does not exist in type '{ fullName: string | SQL<unknown> | Placeholder<string, any>; country: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<...>; ... 6 more ...; selfie: string | ... 1 more ... | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(524,25): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(525,27): error TS2339: Property 'fullName' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(526,26): error TS2339: Property 'address' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(527,23): error TS2339: Property 'city' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(528,29): error TS2339: Property 'postalCode' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(529,26): error TS2339: Property 'country' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(530,25): error TS2339: Property 'idType' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(531,26): error TS2339: Property 'idFront' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(532,25): error TS2339: Property 'idBack' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(533,25): error TS2339: Property 'selfie' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(567,23): error TS2353: Object literal may only specify known properties, and 'updatedAt' does not exist in type '{ fullName?: string | SQL<unknown> | PgColumn<ColumnBaseConfig<ColumnDataType, string>, {}, {}>; country?: string | SQL<unknown> | PgColumn<...>; ... 7 more ...; selfie?: string | ... 1 more ... | PgColumn<...>; }'.
+5:42:05 PM: server/databaseStorage.ts(577,18): error TS2353: Object literal may only specify known properties, and 'kycStatus' does not exist in type '{ username?: string | SQL<unknown> | PgColumn<ColumnBaseConfig<ColumnDataType, string>, {}, {}>; email?: string | SQL<unknown> | PgColumn<...>; password?: string | ... 1 more ... | PgColumn<...>; fullName?: string | ... 1 more ... | PgColumn<...>; referralCode?: string | ... 1 more ... | PgColumn<...>; }'.
+5:42:05 PM: server/databaseStorage.ts(599,9): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { status: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; action: string | SQL<unknown> | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'createdAt' does not exist in type '{ status: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; action: string | SQL<unknown> | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { status: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; action: string | SQL<unknown> | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'createdAt' does not exist in type '{ status: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; action: string | SQL<unknown> | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(655,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { price: number | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; title: string | SQL<unknown> | Placeholder<...>; description: string | ... 1 more ... | Placeholder<...>; category: string | ... 1 more ... | Placeholder<...>; images: string[] | ... 1 more ... | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'isAdminApproved' does not exist in type '{ price: number | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; title: string | SQL<unknown> | Placeholder<string, any>; description: string | ... 1 more ... | Placeholder<...>; category: string | ... 1 more ... | Placeholder<...>; images: string[] | ... 1 more .....'.
+5:42:05 PM:   Overload 2 of 2, '(values: { price: number | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; title: string | SQL<unknown> | Placeholder<...>; description: string | ... 1 more ... | Placeholder<...>; category: string | ... 1 more ... | Placeholder<...>; images: string[] | ... 1 more ... | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'userId' does not exist in type '{ price: number | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; title: string | SQL<unknown> | Placeholder<string, any>; description: string | ... 1 more ... | Placeholder<...>; category: string | ... 1 more ... | Placeholder<...>; images: string[] | ... 1 more .....'.
+5:42:05 PM: server/databaseStorage.ts(656,25): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(657,24): error TS2339: Property 'title' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(658,30): error TS2339: Property 'description' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(659,24): error TS2339: Property 'price' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(660,27): error TS2339: Property 'category' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(661,25): error TS2339: Property 'images' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(693,23): error TS2353: Object literal may only specify known properties, and 'updatedAt' does not exist in type '{ price?: number | SQL<unknown> | PgColumn<ColumnBaseConfig<ColumnDataType, string>, {}, {}>; userId?: number | SQL<unknown> | PgColumn<ColumnBaseConfig<...>, {}, {}>; title?: string | ... 1 more ... | PgColumn<...>; description?: string | ... 1 more ... | PgColumn<...>; category?: string | ... 1 more ... | PgColumn...'.
+5:42:05 PM: server/databaseStorage.ts(732,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { name: string | SQL<unknown> | Placeholder<string, any>; description: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<...>; icon: string | ... 1 more ... | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'isActive' does not exist in type '{ name: string | SQL<unknown> | Placeholder<string, any>; description: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<...>; icon: string | ... 1 more ... | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { name: string | SQL<unknown> | Placeholder<string, any>; description: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<...>; icon: string | ... 1 more ... | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'name' does not exist in type '{ name: string | SQL<unknown> | Placeholder<string, any>; description: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<...>; icon: string | ... 1 more ... | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(733,23): error TS2339: Property 'name' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(734,23): error TS2339: Property 'slug' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(735,30): error TS2339: Property 'description' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(736,23): error TS2339: Property 'icon' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(793,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { name: string | SQL<unknown> | Placeholder<string, any>; code: string | SQL<unknown> | Placeholder<string, any>; flag: string | SQL<unknown> | Placeholder<string, any>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'isActive' does not exist in type '{ name: string | SQL<unknown> | Placeholder<string, any>; code: string | SQL<unknown> | Placeholder<string, any>; flag: string | SQL<unknown> | Placeholder<string, any>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { name: string | SQL<unknown> | Placeholder<string, any>; code: string | SQL<unknown> | Placeholder<string, any>; flag: string | SQL<unknown> | Placeholder<string, any>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'name' does not exist in type '{ name: string | SQL<unknown> | Placeholder<string, any>; code: string | SQL<unknown> | Placeholder<string, any>; flag: string | SQL<unknown> | Placeholder<string, any>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(794,23): error TS2339: Property 'name' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(795,23): error TS2339: Property 'code' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(796,23): error TS2339: Property 'flag' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(853,8): error TS2769: No overload matches this call.
+5:42:05 PM:   Overload 1 of 2, '(value: { message: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; response: string | SQL<unknown> | Placeholder<...>; }): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'createdAt' does not exist in type '{ message: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; response: string | SQL<unknown> | Placeholder<...>; }'.
+5:42:05 PM:   Overload 2 of 2, '(values: { message: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; response: string | SQL<unknown> | Placeholder<...>; }[]): PgInsertBase<...>', gave the following error.
+5:42:05 PM:     Object literal may only specify known properties, and 'userId' does not exist in type '{ message: string | SQL<unknown> | Placeholder<string, any>; userId: number | SQL<unknown> | Placeholder<string, any>; response: string | SQL<unknown> | Placeholder<...>; }[]'.
+5:42:05 PM: server/databaseStorage.ts(854,22): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(855,23): error TS2339: Property 'message' does not exist on type '{}'.
+5:42:05 PM: server/databaseStorage.ts(856,24): error TS2339: Property 'response' does not exist on type '{}'.
+5:42:05 PM: server/index.ts(2,32): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './routes.js'?
+5:42:05 PM: server/index.ts(3,45): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './vite.js'?
+5:42:05 PM: server/routes.ts(92,70): error TS2339: Property 'email' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(98,76): error TS2339: Property 'username' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(104,18): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(108,20): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(109,76): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(118,14): error TS2339: Property 'password' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(118,44): error TS2339: Property 'password' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(248,69): error TS2339: Property 'phoneNumberId' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(263,19): error TS2339: Property 'isReferralReward' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(289,17): error TS2339: Property 'totalAmount' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(306,17): error TS2339: Property 'totalAmount' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(315,25): error TS2339: Property 'isReferralReward' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(372,21): error TS2339: Property 'orderId' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(373,61): error TS2339: Property 'orderId' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(389,17): error TS2339: Property 'reference' does not exist on type '{}'.
+5:42:05 PM: server/routes.ts(397,27): error TS2339: Property 'orderId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(29,26): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './db.js'?
+5:42:05 PM: server/storage.ts(377,20): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(379,18): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(380,27): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(381,68): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(396,11): error TS2739: Type '{ referralCode: string; referralCount: number; isAdmin: boolean; isVerified: false; isBanned: false; kycStatus: string; balance: number; referralWalletBalance: number; createdAt: Date; referredBy: any; id: number; }' is missing the following properties from type '{ id: number; username: string; email: string; password: string; fullName: string; balance: number; referralWalletBalance: number; referralCode: string; referredBy: string; referralCount: number; ... 4 more ...; createdAt: Date; }': username, email, password, fullName
+5:42:05 PM: server/storage.ts(408,30): error TS2339: Property 'referredBy' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(441,27): error TS2339: Property 'number' does not exist on type '{ service?: "WhatsApp" | "Telegram" | "Signal" | "WeChat" | "Facebook" | "Viber" | "Line"; stockCount?: number; }'.
+5:42:05 PM: server/storage.ts(442,28): error TS2339: Property 'country' does not exist on type '{ service?: "WhatsApp" | "Telegram" | "Signal" | "WeChat" | "Facebook" | "Viber" | "Line"; stockCount?: number; }'.
+5:42:05 PM: server/storage.ts(444,26): error TS2339: Property 'price' does not exist on type '{ service?: "WhatsApp" | "Telegram" | "Signal" | "WeChat" | "Facebook" | "Viber" | "Line"; stockCount?: number; }'.
+5:42:05 PM: server/storage.ts(488,21): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(489,28): error TS2339: Property 'phoneNumberId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(490,28): error TS2339: Property 'paymentMethod' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(491,26): error TS2339: Property 'totalAmount' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(494,31): error TS2339: Property 'isReferralReward' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(502,16): error TS2339: Property 'isReferralReward' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(503,59): error TS2339: Property 'phoneNumberId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(538,23): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(539,23): error TS2339: Property 'amount' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(540,23): error TS2339: Property 'method' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(542,24): error TS2339: Property 'orderId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(543,26): error TS2339: Property 'reference' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(593,19): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(594,21): error TS2339: Property 'fullName' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(595,20): error TS2339: Property 'address' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(596,17): error TS2339: Property 'city' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(597,23): error TS2339: Property 'postalCode' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(598,20): error TS2339: Property 'country' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(599,19): error TS2339: Property 'idType' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(600,20): error TS2339: Property 'idFront' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(601,19): error TS2339: Property 'idBack' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(602,19): error TS2339: Property 'selfie' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(658,24): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(659,24): error TS2339: Property 'action' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(660,24): error TS2339: Property 'status' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(702,45): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(707,23): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(708,22): error TS2339: Property 'title' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(709,28): error TS2339: Property 'description' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(710,22): error TS2339: Property 'price' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(711,25): error TS2339: Property 'category' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(712,23): error TS2339: Property 'images' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(765,21): error TS2339: Property 'name' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(766,21): error TS2339: Property 'slug' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(767,28): error TS2339: Property 'description' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(768,21): error TS2339: Property 'icon' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(813,21): error TS2339: Property 'name' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(814,21): error TS2339: Property 'code' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(815,21): error TS2339: Property 'flag' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(860,20): error TS2339: Property 'userId' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(861,21): error TS2339: Property 'message' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(862,22): error TS2339: Property 'response' does not exist on type '{}'.
+5:42:05 PM: server/storage.ts(882,33): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './databaseStorage.js'?
+5:42:05 PM: server/vite.ts(9,24): error TS2307: Cannot find module '../vite.config' or its corresponding type declarations.
+5:42:05 PM: shared/schema.ts(25,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(26,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(27,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(28,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(29,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(30,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(31,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(32,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(60,5): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(61,5): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(62,5): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(84,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(85,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(86,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(87,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(88,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(105,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(106,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(107,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(108,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(130,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(131,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(132,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(133,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(153,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(154,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(173,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(174,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(175,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(176,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(177,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(192,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(193,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(194,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(208,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(209,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(210,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(223,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: shared/schema.ts(224,3): error TS2322: Type 'boolean' is not assignable to type 'never'.
+5:42:05 PM: ​
+5:42:05 PM: "build.command" failed                                        
+5:42:05 PM: ────────────────────────────────────────────────────────────────
+5:42:05 PM: ​
+5:42:05 PM:   Error message
+5:42:05 PM:   Command failed with exit code 2: node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json --outDir netlify/functions (https://ntl.fyi/exit-code-2)
+5:42:05 PM: ​
+5:42:05 PM:   Error location
+5:42:05 PM:   In build.command from netlify.toml:
+5:42:05 PM:   node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json --outDir netlify/functions
+5:42:05 PM: ​
+5:42:05 PM:   Resolved config
+5:42:05 PM:   build:
+5:42:05 PM:     base: /opt/build/repo
+5:42:05 PM:     command: node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json --outDir netlify/functions
+5:42:05 PM:     commandOrigin: config
+5:42:05 PM:     environment:
+5:42:05 PM:       - CORS_ORIGIN
+5:42:05 PM:       - DATABASE_URL
+5:42:05 PM:       - SESSION_SECRET
+5:42:05 PM:       - NODE_VERSION
+5:42:05 PM:       - NETLIFY
+5:42:05 PM:     publish: /opt/build/repo/dist/public
+5:42:05 PM:     publishOrigin: config
+5:42:05 PM:   functions:
+5:42:05 PM:     '*':
+5:42:05 PM:       node_bundler: esbuild
+5:42:05 PM:   functionsDirectory: /opt/build/repo/netlify/functions
+5:42:05 PM:   redirects:
+5:42:05 PM:     - from: /api/*
+      status: 200
+      to: /.netlify/functions/api/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+5:42:05 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+5:42:05 PM: Failing build: Failed to build site
+5:42:06 PM: Finished processing build request in 31.809s
+5:42:05 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
