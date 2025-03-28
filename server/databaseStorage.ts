@@ -21,13 +21,13 @@ import {
   services,
   countries,
   aiChats
-} from "../shared/schema";
+} from "../shared/schema.js";
 import { nanoid } from "nanoid";
 import session from "express-session";
 import connectPg from "connect-pg-simple";
-import { db, pool } from "./db";
+import { db, pool } from "./db.js";
 import { eq, desc, and, asc, isNull, not, gt, lt, like, sql, gte, lte } from "drizzle-orm";
-import { IStorage } from "./storage";
+import { IStorage } from "./storage.js";
 import MemoryStore from "memorystore";
 
 const PostgresSessionStore = connectPg(session);

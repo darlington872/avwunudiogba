@@ -1,6 +1,6 @@
 [build]
-  command = "node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json"
-  publish = "dist/client"
+  command = "node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json --outDir netlify/functions"
+  publish = "dist/public"
   functions = "netlify/functions"
 
 [dev]

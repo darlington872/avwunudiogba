@@ -7,9 +7,9 @@ import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
-import { setupAuth } from '../../server/auth';
-import { registerRoutes } from '../../server/routes';
-import { DatabaseStorage } from '../../server/databaseStorage';
+import { setupAuth } from '../../server/auth.js';
+import { registerRoutes } from '../../server/routes.js';
+import { DatabaseStorage } from '../../server/databaseStorage.js';
 import session from 'express-session';
 import passport from 'passport';
 

@@ -33,7 +33,8 @@ const packageJson = {
     "cors": "^2.8.5",
     "zod": "^3.22.4",
     "tsconfig-paths": "^4.2.0",
-    "module-alias": "^2.2.3"
+    "module-alias": "^2.2.3",
+    "memorystore": "^1.6.7"
   }
 };
 

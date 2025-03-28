@@ -1,7 +1,7 @@
 import express, { type Request, Response } from "express";
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage } from "./storage.js";
 import { 
   insertUserSchema, 
   insertPhoneNumberSchema, 
@@ -13,8 +13,8 @@ import {
   insertServiceSchema,
   insertCountrySchema,
   insertAiChatSchema
-} from "../shared/schema";
-import { setupAuth } from "./auth";
+} from "../shared/schema.js";
+import { setupAuth } from "./auth.js";
 import { ZodError } from "zod";
 import crypto from "crypto";
 import { nanoid } from "nanoid";

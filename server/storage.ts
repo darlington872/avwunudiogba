@@ -21,7 +21,7 @@ import {
   services,
   countries,
   aiChats
-} from "../shared/schema";
+} from "../shared/schema.js";
 import { nanoid } from "nanoid";
 import session from "express-session";
 import createMemoryStore from "memorystore";
