@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="240" height="56" viewBox="0 0 240 56" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo container -->
+  <g>
+    <!-- Phone icon with signal waves -->
+    <g transform="translate(0, 0)">
+      <!-- Phone base -->
+      <rect x="2" y="6" width="20" height="40" rx="4" fill="url(#phoneGradient)" stroke="#8A2BE2" stroke-width="1.5"/>
+      <!-- Phone screen -->
+      <rect x="5" y="10" width="14" height="26" rx="1" fill="#1A0033" stroke="#6A00FF" stroke-width="0.5"/>
+      
+      <!-- Signal waves -->
+      <path d="M28,28 C34,24 38,28 42,24" stroke="#ff00cc" stroke-width="1.5" fill="none" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite" />
+      </path>
+      <path d="M28,22 C38,18 42,22 50,14" stroke="#3300ff" stroke-width="1.5" fill="none" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2.5s" repeatCount="indefinite" />
+      </path>
+      <path d="M28,16 C40,10 48,16 58,8" stroke="#8a00c2" stroke-width="1.5" fill="none" opacity="0.4">
+        <animate attributeName="opacity" values="0.4;0.2;0.4" dur="3s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <!-- Text ETHERVOX SMS -->
+    <g transform="translate(68, 28)" fill="url(#textGradient)">
+      <!-- ETHERVOX -->
+      <text font-family="Arial, sans-serif" font-weight="800" font-size="24" letter-spacing="1">
+        ETHERVOX
+      </text>
+      <!-- SMS -->
+      <text x="140" font-family="Arial, sans-serif" font-weight="800" font-size="24" letter-spacing="1">
+        SMS
+      </text>
+    </g>
+  </g>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="phoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6A00FF" />
+      <stop offset="100%" stop-color="#FF00CC" />
+    </linearGradient>
+    
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF00CC" />
+      <stop offset="33%" stop-color="#3300FF" />
+      <stop offset="66%" stop-color="#8A00C2" />
+      <stop offset="100%" stop-color="#FF00DD" />
+      <animate attributeName="x1" from="0%" to="100%" dur="8s" repeatCount="indefinite" />
+      <animate attributeName="x2" from="100%" to="200%" dur="8s" repeatCount="indefinite" />
+    </linearGradient>
+  </defs>
+</svg>

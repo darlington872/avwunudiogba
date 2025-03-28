@@ -53,11 +53,11 @@ const RegisterPage: React.FC = () => {
       <div className="flex-1 overflow-hidden phone-texture-bg">
         <div className="overflow-auto h-screen">
           <div className="container mx-auto px-4 py-6">
-            {/* Site Name - First Element */}
+            {/* Site Logo - First Element */}
             <div className="text-center mb-8">
-              <h1 className="text-5xl lg:text-6xl font-extrabold mb-4 vibrant-gradient-text">
-                ETHERVOX SMS
-              </h1>
+              <div className="flex justify-center mb-4">
+                <img src="@assets/ethervox-logo-with-text.svg" alt="ETHERVOX SMS" className="h-16 md:h-20" />
+              </div>
               <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Premium virtual number marketplace with integrated rewards system</p>
             </div>
             

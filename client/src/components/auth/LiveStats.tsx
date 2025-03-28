@@ -63,15 +63,31 @@ const LiveStats: React.FC = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-6 mb-8">
-      <h2 className="text-lg text-center text-purple-200 mb-4">Live Platform Activity</h2>
+      <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="relative flex items-center">
+          <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+          <div className="absolute w-4 h-4 bg-green-500 rounded-full opacity-30 animate-ping"></div>
+        </div>
+        <h2 className="text-lg text-center text-purple-200">Live Platform Activity</h2>
+        <span className="text-green-400 text-xs font-semibold bg-green-900/30 px-2 py-1 rounded-full border border-green-500/30">
+          Actively monitoring
+        </span>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {displayStats.map((stat, index) => (
-          <div key={index} className="glowing-card p-4 text-center">
-            <div className="text-purple-300 text-sm mb-1">{stat.label}</div>
+          <div key={index} className="glowing-card p-4 text-center relative">
+            <div className="text-purple-300 text-sm mb-1 flex items-center justify-center gap-1">
+              {stat.label}
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+            </div>
             <div className="stats-value text-xl md:text-2xl font-bold">
               {stat.suffix}{formatNumber(stat.value)}
             </div>
-            <div className="text-purple-400 text-xs mt-1 opacity-70">Live Updates</div>
+            <div className="flex items-center justify-center gap-1 text-green-400 text-xs mt-1">
+              <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+              Live Updates
+              <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+            </div>
           </div>
         ))}
       </div>
