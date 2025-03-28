@@ -1,4 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import { API_BASE_URL, fetchApi } from "./api";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -12,7 +13,11 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  // Check if the URL starts with http:// or https:// - if it does, don't prepend API_BASE_URL
+  const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://');
+  const fullUrl = isAbsoluteUrl ? url : `${API_BASE_URL}${url.startsWith('/') ? url : `/${url}`}`;
+  
+  const res = await fetch(fullUrl, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
@@ -29,7 +34,13 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    const urlKey = queryKey[0] as string;
+    
+    // Check if the URL starts with http:// or https:// - if it does, don't prepend API_BASE_URL
+    const isAbsoluteUrl = urlKey.startsWith('http://') || urlKey.startsWith('https://');
+    const fullUrl = isAbsoluteUrl ? urlKey : `${API_BASE_URL}${urlKey.startsWith('/') ? urlKey : `/${urlKey}`}`;
+    
+    const res = await fetch(fullUrl, {
       credentials: "include",
     });
 

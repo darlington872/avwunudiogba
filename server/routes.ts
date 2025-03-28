@@ -33,7 +33,7 @@ export async function registerRoutes(app: Express, customStorage: any = null): P
   const httpServer = createServer(app);
   
   // Use provided storage if available (for Netlify Functions)
-  const storageToUse = customStorage || storage;
+  const storageToUse = customStorage !== null ? customStorage : storage;
   
   // Set up authentication with Passport
   setupAuth(app);
