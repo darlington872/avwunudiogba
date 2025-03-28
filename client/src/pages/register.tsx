@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/ui/sidebar";
 import Register from "@/components/auth/Register";
 import LiveStats from "@/components/auth/LiveStats";
+import logoWithText from "@/assets/ethervox-logo-with-text.svg";
 import { 
   Zap, 
   BadgeCheck, 
@@ -56,9 +57,9 @@ const RegisterPage: React.FC = () => {
             {/* Site Logo - First Element */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <img src="@assets/ethervox-logo-with-text.svg" alt="ETHERVOX SMS" className="h-16 md:h-20" />
+                <img src={logoWithText} alt="ETHERVOX SMS" className="h-12 md:h-16" />
               </div>
-              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Premium virtual number marketplace with integrated rewards system</p>
+              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Stay jiggy</p>
             </div>
             
             {/* Live Stats - Dynamic Component */}
