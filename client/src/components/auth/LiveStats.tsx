@@ -63,33 +63,36 @@ const LiveStats: React.FC = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-6 mb-8">
-      <div className="flex items-center justify-center gap-2 mb-4">
-        <div className="relative flex items-center">
-          <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-          <div className="absolute w-4 h-4 bg-green-500 rounded-full opacity-30 animate-ping"></div>
-        </div>
-        <h2 className="text-lg text-center text-purple-200">Live Platform Activity</h2>
-        <span className="text-green-400 text-xs font-semibold bg-green-900/30 px-2 py-1 rounded-full border border-green-500/30">
-          Actively monitoring
-        </span>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {displayStats.map((stat, index) => (
-          <div key={index} className="glowing-card p-4 text-center relative">
-            <div className="text-purple-300 text-sm mb-1 flex items-center justify-center gap-1">
-              {stat.label}
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-            </div>
-            <div className="stats-value text-xl md:text-2xl font-bold">
-              {stat.suffix}{formatNumber(stat.value)}
-            </div>
-            <div className="flex items-center justify-center gap-1 text-green-400 text-xs mt-1">
-              <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-              Live Updates
-              <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-            </div>
+      <div className="bg-purple-900/30 backdrop-blur-sm border border-purple-500/30 rounded-lg p-4 shadow-lg">
+        <div className="flex items-center justify-center gap-3 mb-5 bg-purple-950/50 p-3 rounded-md border border-purple-400/20 shadow-inner">
+          <div className="relative flex items-center">
+            <div className="w-3 h-3 bg-green-500 rounded-full mr-1 animate-pulse"></div>
+            <div className="absolute w-4 h-4 bg-green-500 rounded-full opacity-30 animate-ping"></div>
           </div>
-        ))}
+          <h2 className="text-lg text-center text-purple-100 font-semibold">Live Platform Activity</h2>
+          <span className="text-green-400 text-xs font-semibold bg-green-900/40 px-3 py-1 rounded-full border border-green-500/40 flex items-center">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-1.5"></span>
+            Actively monitoring
+          </span>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {displayStats.map((stat, index) => (
+            <div key={index} className="glowing-card bg-purple-800/20 p-4 text-center relative rounded-lg border border-purple-500/30 hover:border-purple-500/50 transition-all duration-300 shadow-md hover:shadow-lg">
+              <div className="text-purple-300 text-sm mb-1.5 flex items-center justify-center gap-1">
+                {stat.label}
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+              </div>
+              <div className="stats-value text-xl md:text-2xl font-bold text-white">
+                {stat.suffix}{formatNumber(stat.value)}
+              </div>
+              <div className="flex items-center justify-center gap-1.5 text-green-400 text-xs mt-2 bg-green-900/30 py-1 px-2 rounded-full mx-auto w-fit">
+                <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                Live Updates
+                <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

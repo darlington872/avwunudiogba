@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/ui/sidebar";
 import Login from "@/components/auth/Login";
 import LiveStats from "@/components/auth/LiveStats";
-import logoWithText from "@/assets/ethervox-logo-with-text.svg";
+import NotificationRequest from "@/components/common/NotificationRequest";
+import logoWithText from "@/assets/ethervox-globe-with-text.svg";
 import { 
   Users, 
   BadgeCheck, 
@@ -62,9 +63,16 @@ const LoginPage: React.FC = () => {
             {/* Site Logo and Stats - First Elements */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <img src={logoWithText} alt="ETHERVOX SMS" className="h-14 md:h-20" />
+                <img src={logoWithText} alt="ETHERVOX SMS" className="h-20 md:h-32 transition-all duration-300 hover:scale-105" />
               </div>
-              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Connecting the world, one number at a time</p>
+              <p className="text-xs text-purple-300 mb-4 tracking-widest uppercase font-light drop-shadow-md italic">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400">
+                  Connecting the world, one number at a time
+                </span>
+              </p>
+              <div className="flex justify-center">
+                <NotificationRequest />
+              </div>
             </div>
             
             {/* Live Stats - Dynamic Component */}
@@ -86,8 +94,67 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Testimonials */}
-            <div className="mb-10">
+
+            
+            {/* Login Form and Hero Content */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              {/* Login Form */}
+              <div className="md:order-2">
+                <div className="max-w-md mx-auto">
+                  <Login />
+                </div>
+              </div>
+              
+              {/* Hero Content */}
+              <div className="md:order-1 space-y-6">
+                <div>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                    <span className="neon-text">Welcome Back</span>
+                  </h2>
+                  <p className="text-lg text-purple-300 mb-6">Access your account to manage orders and referrals.</p>
+                </div>
+                
+                {/* Circular Stats */}
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  {stats.map((stat, index) => (
+                    <div key={index} className="text-center">
+                      <div 
+                        className="stats-circle-vibrant w-20 h-20 mx-auto mb-2"
+                        style={{ 
+                          "--percentage": `${stat.percent}%`,
+                          "--percentage-double": `${stat.percent * 2}%`
+                        } as React.CSSProperties}
+                      >
+                        <div className="absolute inset-2 rounded-full bg-gray-900 flex items-center justify-center">
+                          <stat.icon className="h-5 w-5 text-white" />
+                        </div>
+                      </div>
+                      <h3 className="text-white font-bold stats-value text-lg">{stat.value}</h3>
+                      <p className="text-purple-300 text-xs">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Feature Badges */}
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <span className="bg-purple-900/30 text-purple-300 text-xs font-medium px-3 py-1 rounded-full border border-purple-500/30 flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3" /> Secure Payments
+                  </span>
+                  <span className="bg-blue-900/30 text-blue-300 text-xs font-medium px-3 py-1 rounded-full border border-blue-500/30 flex items-center gap-1">
+                    <Sparkles className="h-3 w-3" /> ₦100 Per Referral
+                  </span>
+                  <span className="bg-indigo-900/30 text-indigo-300 text-xs font-medium px-3 py-1 rounded-full border border-indigo-500/30 flex items-center gap-1">
+                    <BriefcaseBusiness className="h-3 w-3" /> Verified Vendors
+                  </span>
+                  <span className="bg-fuchsia-900/30 text-fuchsia-300 text-xs font-medium px-3 py-1 rounded-full border border-fuchsia-500/30 flex items-center gap-1">
+                    <Shuffle className="h-3 w-3" /> Instant Delivery
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Testimonials at the bottom */}
+            <div className="mt-20 mb-8">
               <h3 className="text-xl font-bold mb-4 rainbow-text text-center">Customer Testimonials</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Instagram Testimonial */}
@@ -169,63 +236,6 @@ const LoginPage: React.FC = () => {
                     <span className="flex items-center"><ThumbsUp className="h-3 w-3 mr-1" /> 2.5k</span>
                     <span className="flex items-center"><MessageSquare className="h-3 w-3 mr-1" /> 148</span>
                   </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Login Form and Hero Content */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-              {/* Login Form */}
-              <div className="md:order-2">
-                <div className="max-w-md mx-auto">
-                  <Login />
-                </div>
-              </div>
-              
-              {/* Hero Content */}
-              <div className="md:order-1 space-y-6">
-                <div>
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                    <span className="neon-text">Welcome Back</span>
-                  </h2>
-                  <p className="text-lg text-purple-300 mb-6">Access your account to manage orders and referrals.</p>
-                </div>
-                
-                {/* Circular Stats */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  {stats.map((stat, index) => (
-                    <div key={index} className="text-center">
-                      <div 
-                        className="stats-circle-vibrant w-20 h-20 mx-auto mb-2"
-                        style={{ 
-                          "--percentage": `${stat.percent}%`,
-                          "--percentage-double": `${stat.percent * 2}%`
-                        } as React.CSSProperties}
-                      >
-                        <div className="absolute inset-2 rounded-full bg-gray-900 flex items-center justify-center">
-                          <stat.icon className="h-5 w-5 text-white" />
-                        </div>
-                      </div>
-                      <h3 className="text-white font-bold stats-value text-lg">{stat.value}</h3>
-                      <p className="text-purple-300 text-xs">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Feature Badges */}
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <span className="bg-purple-900/30 text-purple-300 text-xs font-medium px-3 py-1 rounded-full border border-purple-500/30 flex items-center gap-1">
-                    <ShieldCheck className="h-3 w-3" /> Secure Payments
-                  </span>
-                  <span className="bg-blue-900/30 text-blue-300 text-xs font-medium px-3 py-1 rounded-full border border-blue-500/30 flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" /> ₦100 Per Referral
-                  </span>
-                  <span className="bg-indigo-900/30 text-indigo-300 text-xs font-medium px-3 py-1 rounded-full border border-indigo-500/30 flex items-center gap-1">
-                    <BriefcaseBusiness className="h-3 w-3" /> Verified Vendors
-                  </span>
-                  <span className="bg-fuchsia-900/30 text-fuchsia-300 text-xs font-medium px-3 py-1 rounded-full border border-fuchsia-500/30 flex items-center gap-1">
-                    <Shuffle className="h-3 w-3" /> Instant Delivery
-                  </span>
                 </div>
               </div>
             </div>

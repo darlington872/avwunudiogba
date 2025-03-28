@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Globe gradient -->
+  <defs>
+    <linearGradient id="globeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9333EA" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Outer glowing circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#globeGradient)" opacity="0.1" filter="url(#glow)" />
+  
+  <!-- Globe body -->
+  <circle cx="256" cy="256" r="200" fill="url(#globeGradient)" opacity="0.9" />
+  
+  <!-- Network/Connection lines -->
+  <path d="M256 56 L256 456" stroke="white" stroke-width="2" stroke-opacity="0.2" />
+  <path d="M56 256 L456 256" stroke="white" stroke-width="2" stroke-opacity="0.2" />
+  <path d="M116 116 L396 396" stroke="white" stroke-width="2" stroke-opacity="0.2" />
+  <path d="M116 396 L396 116" stroke="white" stroke-width="2" stroke-opacity="0.2" />
+  
+  <!-- Latitude and longitude lines -->
+  <circle cx="256" cy="256" r="150" stroke="white" stroke-width="1" stroke-opacity="0.3" fill="none" />
+  <circle cx="256" cy="256" r="100" stroke="white" stroke-width="1" stroke-opacity="0.3" fill="none" />
+  <circle cx="256" cy="256" r="50" stroke="white" stroke-width="1" stroke-opacity="0.3" fill="none" />
+  
+  <!-- Phone symbol in the middle -->
+  <path d="M216 216 L256 186 L296 216 L296 306 L216 306 Z" fill="white" fill-opacity="0.9" />
+  <rect x="236" y="286" width="40" height="10" rx="5" fill="#6D28D9" />
+  
+  <!-- Dots representing connection points -->
+  <circle cx="156" cy="156" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="356" cy="156" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="156" cy="356" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="356" cy="356" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="256" cy="106" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="256" cy="406" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="106" cy="256" r="8" fill="white" fill-opacity="0.8" />
+  <circle cx="406" cy="256" r="8" fill="white" fill-opacity="0.8" />
+</svg>

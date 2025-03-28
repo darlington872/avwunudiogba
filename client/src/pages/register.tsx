@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/ui/sidebar";
 import Register from "@/components/auth/Register";
 import LiveStats from "@/components/auth/LiveStats";
-import logoWithText from "@/assets/ethervox-logo-with-text.svg";
+import NotificationRequest from "@/components/common/NotificationRequest";
+import logoWithText from "@/assets/ethervox-globe-with-text.svg";
 import { 
   Zap, 
   BadgeCheck, 
@@ -63,9 +64,16 @@ const RegisterPage: React.FC = () => {
             {/* Site Logo - First Element */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <img src={logoWithText} alt="ETHERVOX SMS" className="h-14 md:h-20" />
+                <img src={logoWithText} alt="ETHERVOX SMS" className="h-20 md:h-32 transition-all duration-300 hover:scale-105" />
               </div>
-              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Connecting the world, one number at a time</p>
+              <p className="text-xs text-purple-300 mb-4 tracking-widest uppercase font-light drop-shadow-md italic">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400">
+                  Connecting the world, one number at a time
+                </span>
+              </p>
+              <div className="flex justify-center">
+                <NotificationRequest />
+              </div>
             </div>
             
             {/* Live Stats - Dynamic Component */}
@@ -89,8 +97,60 @@ const RegisterPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Testimonials */}
-            <div className="mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              {/* Register Form */}
+              <div className="md:order-2">
+                <div className="max-w-md mx-auto">
+                  <Register />
+                </div>
+              </div>
+              
+              {/* Hero Content */}
+              <div className="md:order-1 space-y-6">
+                <div>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                    <span className="neon-text">Join Our Platform</span>
+                  </h2>
+                  <p className="text-lg text-purple-300 mb-6">Create your account and get instant access to premium virtual numbers with our reward program.</p>
+                </div>
+                
+                {/* Benefits */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="vibrant-card p-4 floating" style={{ animationDelay: `${index * 0.2}s` }}>
+                      <div className="flex gap-3 items-start">
+                        <div className="bg-gradient-to-br from-purple-600 to-indigo-800 p-2 rounded-lg">
+                          <benefit.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white mb-1">{benefit.title}</h3>
+                          <p className="text-gray-300 text-sm">{benefit.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Feature Badges */}
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <span className="bg-purple-900/30 text-purple-300 text-xs font-medium px-3 py-1 rounded-full border border-purple-500/30 flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3" /> Privacy Protected
+                  </span>
+                  <span className="bg-blue-900/30 text-blue-300 text-xs font-medium px-3 py-1 rounded-full border border-blue-500/30 flex items-center gap-1">
+                    <Sparkles className="h-3 w-3" /> Premium Quality
+                  </span>
+                  <span className="bg-indigo-900/30 text-indigo-300 text-xs font-medium px-3 py-1 rounded-full border border-indigo-500/30 flex items-center gap-1">
+                    <Lock className="h-3 w-3" /> Encrypted Data
+                  </span>
+                  <span className="bg-fuchsia-900/30 text-fuchsia-300 text-xs font-medium px-3 py-1 rounded-full border border-fuchsia-500/30 flex items-center gap-1">
+                    <TrendingUp className="h-3 w-3" /> Growing Fast
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Testimonials at the bottom */}
+            <div className="mt-20 mb-8">
               <h3 className="text-xl font-bold mb-4 rainbow-text text-center">Customer Testimonials</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Instagram Testimonial */}
@@ -172,58 +232,6 @@ const RegisterPage: React.FC = () => {
                     <span className="flex items-center"><ThumbsUp className="h-3 w-3 mr-1" /> 2.5k</span>
                     <span className="flex items-center"><MessageSquare className="h-3 w-3 mr-1" /> 148</span>
                   </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-              {/* Register Form */}
-              <div className="md:order-2">
-                <div className="max-w-md mx-auto">
-                  <Register />
-                </div>
-              </div>
-              
-              {/* Hero Content */}
-              <div className="md:order-1 space-y-6">
-                <div>
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                    <span className="neon-text">Join Our Platform</span>
-                  </h2>
-                  <p className="text-lg text-purple-300 mb-6">Create your account and get instant access to premium virtual numbers with our reward program.</p>
-                </div>
-                
-                {/* Benefits */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="vibrant-card p-4 floating" style={{ animationDelay: `${index * 0.2}s` }}>
-                      <div className="flex gap-3 items-start">
-                        <div className="bg-gradient-to-br from-purple-600 to-indigo-800 p-2 rounded-lg">
-                          <benefit.icon className="h-6 w-6 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-white mb-1">{benefit.title}</h3>
-                          <p className="text-gray-300 text-sm">{benefit.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Feature Badges */}
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <span className="bg-purple-900/30 text-purple-300 text-xs font-medium px-3 py-1 rounded-full border border-purple-500/30 flex items-center gap-1">
-                    <ShieldCheck className="h-3 w-3" /> Privacy Protected
-                  </span>
-                  <span className="bg-blue-900/30 text-blue-300 text-xs font-medium px-3 py-1 rounded-full border border-blue-500/30 flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" /> Premium Quality
-                  </span>
-                  <span className="bg-indigo-900/30 text-indigo-300 text-xs font-medium px-3 py-1 rounded-full border border-indigo-500/30 flex items-center gap-1">
-                    <Lock className="h-3 w-3" /> Encrypted Data
-                  </span>
-                  <span className="bg-fuchsia-900/30 text-fuchsia-300 text-xs font-medium px-3 py-1 rounded-full border border-fuchsia-500/30 flex items-center gap-1">
-                    <TrendingUp className="h-3 w-3" /> Growing Fast
-                  </span>
                 </div>
               </div>
             </div>
