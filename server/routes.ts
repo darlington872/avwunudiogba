@@ -36,11 +36,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   setupAuth(app);
   
   // Health check endpoint for Koyeb
-  router.get('/api/health', (req: Request, res: Response) => {
-    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
-  });
-  
-  // Alias the health check at the root path as well for local testing
   router.get('/health', (req: Request, res: Response) => {
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
   });
@@ -1175,8 +1170,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   }));
 
-  // Register the API routes
+  // Register the API routes under /api
   app.use('/api', router);
+  
+  // Create a root router for the health check and other essential endpoints
+  const rootRouter = express.Router();
+  
+  // Health check at root path for Koyeb deployments
+  rootRouter.get('/health', (req: Request, res: Response) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+  });
+  
+  // Root path catch-all to redirect to the frontend
+  rootRouter.get('/', (req: Request, res: Response) => {
+    res.redirect('/login');
+  });
+  
+  // Register root endpoints
+  app.use(rootRouter);
 
   return httpServer;
 }
