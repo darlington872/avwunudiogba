@@ -16,7 +16,13 @@ import {
   Sparkles, 
   BriefcaseBusiness,
   Smartphone,
-  Shuffle
+  Shuffle,
+  MessageSquare,
+  Star,
+  Instagram, 
+  Facebook,
+  Twitter,
+  ThumbsUp
 } from "lucide-react";
 
 const LoginPage: React.FC = () => {
@@ -56,9 +62,9 @@ const LoginPage: React.FC = () => {
             {/* Site Logo and Stats - First Elements */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <img src={logoWithText} alt="ETHERVOX SMS" className="h-12 md:h-16" />
+                <img src={logoWithText} alt="ETHERVOX SMS" className="h-14 md:h-20" />
               </div>
-              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Stay jiggy</p>
+              <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Connecting the world, one number at a time</p>
             </div>
             
             {/* Live Stats - Dynamic Component */}
@@ -77,6 +83,93 @@ const LoginPage: React.FC = () => {
                     <p className="text-xl font-bold vibrant-gradient-text">{stat.value}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+            
+            {/* Testimonials */}
+            <div className="mb-10">
+              <h3 className="text-xl font-bold mb-4 rainbow-text text-center">Customer Testimonials</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Instagram Testimonial */}
+                <div className="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 p-5 rounded-xl border border-purple-500/20 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-3 py-1 rounded-bl-lg">
+                    <Instagram className="h-3 w-3 inline mr-1" /> Instagram
+                  </div>
+                  <div className="mb-3 flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
+                      JD
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">John Doe</p>
+                      <div className="flex text-yellow-400">
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm mb-2">"ETHERVOX SMS has been a game changer for my business. The virtual numbers are reliable and their referral program is amazing! #EtherVoxRocks"</p>
+                  <div className="text-purple-400 text-xs flex gap-2">
+                    <span className="flex items-center"><ThumbsUp className="h-3 w-3 mr-1" /> 1.2k</span>
+                    <span className="flex items-center"><MessageSquare className="h-3 w-3 mr-1" /> 67</span>
+                  </div>
+                </div>
+                
+                {/* Facebook Testimonial */}
+                <div className="bg-gradient-to-br from-blue-900/50 to-indigo-900/50 p-5 rounded-xl border border-blue-500/20 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-blue-400 text-white text-xs px-3 py-1 rounded-bl-lg">
+                    <Facebook className="h-3 w-3 inline mr-1" /> Facebook
+                  </div>
+                  <div className="mb-3 flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold">
+                      SM
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Sarah Miller</p>
+                      <div className="flex text-yellow-400">
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3" />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm mb-2">"I've been using ETHERVOX for 6 months now and couldn't be happier. The customer service is top-notch and the platform is super easy to use."</p>
+                  <div className="text-blue-400 text-xs flex gap-2">
+                    <span className="flex items-center"><ThumbsUp className="h-3 w-3 mr-1" /> 856</span>
+                    <span className="flex items-center"><MessageSquare className="h-3 w-3 mr-1" /> 42</span>
+                  </div>
+                </div>
+                
+                {/* Twitter Testimonial */}
+                <div className="bg-gradient-to-br from-sky-900/50 to-blue-900/50 p-5 rounded-xl border border-sky-500/20 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-sky-500 to-blue-400 text-white text-xs px-3 py-1 rounded-bl-lg">
+                    <Twitter className="h-3 w-3 inline mr-1" /> Twitter
+                  </div>
+                  <div className="mb-3 flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-sky-500 to-blue-500 flex items-center justify-center text-white font-bold">
+                      RJ
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Robert Johnson</p>
+                      <div className="flex text-yellow-400">
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                        <Star className="h-3 w-3 fill-current" />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm mb-2">"Just earned my 20th referral bonus from @ETHERVOX_SMS! This platform is the real deal. Helping friends get virtual numbers while making money is a win-win! 🚀"</p>
+                  <div className="text-sky-400 text-xs flex gap-2">
+                    <span className="flex items-center"><ThumbsUp className="h-3 w-3 mr-1" /> 2.5k</span>
+                    <span className="flex items-center"><MessageSquare className="h-3 w-3 mr-1" /> 148</span>
+                  </div>
+                </div>
               </div>
             </div>
             
