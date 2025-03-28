@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/ui/sidebar";
 import Register from "@/components/auth/Register";
+import LiveStats from "@/components/auth/LiveStats";
 import { 
   Zap, 
   BadgeCheck, 
@@ -59,6 +60,9 @@ const RegisterPage: React.FC = () => {
               </h1>
               <p className="text-xl text-purple-300 mb-4 drop-shadow-md">Premium virtual number marketplace with integrated rewards system</p>
             </div>
+            
+            {/* Live Stats - Dynamic Component */}
+            <LiveStats />
             
             {/* Trust Signals - Second Element */}
             <div className="glowing-card p-4 mb-10 max-w-4xl mx-auto">
