@@ -18,12 +18,12 @@ This application can be deployed to both Koyeb and Netlify.
 2. Log in to Netlify (https://app.netlify.com/)
 3. Create a new site from GitHub
 4. Use the following build settings:
-   - Build command: `node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck`
-   - Publish directory: `dist/client`
+   - Build command: `node netlify-build.js && npm run build && tsc -p tsconfig.netlify.json --outDir netlify/functions`
+   - Publish directory: `dist/public`
 5. Set the following environment variables:
    - `DATABASE_URL`: Your PostgreSQL connection string
    - `SESSION_SECRET`: A secure random string for session encryption
-   - `CORS_ORIGIN`: Your Netlify site URL (e.g., https://your-app.netlify.app)
+   - `CORS_ORIGIN`: Your Netlify site URL (e.g., https://ethervoxsms.netlify.app)
    - `NODE_ENV`: production
    - `NETLIFY`: true
 6. Deploy and wait for the build to complete

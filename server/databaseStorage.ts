@@ -21,7 +21,7 @@ import {
   services,
   countries,
   aiChats
-} from "@shared/schema.js";
+} from "../shared/schema.js";
 import { nanoid } from "nanoid";
 import session from "express-session";
 import connectPg from "connect-pg-simple";

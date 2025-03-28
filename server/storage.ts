@@ -21,7 +21,7 @@ import {
   services,
   countries,
   aiChats
-} from "@shared/schema.js";
+} from "../shared/schema.js";
 import { nanoid } from "nanoid";
 import session from "express-session";
 import createMemoryStore from "memorystore";
@@ -657,7 +657,7 @@ export class MemStorage implements IStorage {
       id,
       userId: activity.userId,
       action: activity.action,
-      details: activity.details,
+      status: activity.status,
       createdAt: new Date()
     };
     

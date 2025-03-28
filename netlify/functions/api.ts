@@ -11,10 +11,15 @@ import cors from 'cors';
 import session from 'express-session';
 import passport from 'passport';
 
-// Dynamic imports for ESM compatibility
-import { setupAuth } from '../../server/auth.js';
-import { registerRoutes } from '../../server/routes.js';
-import { DatabaseStorage } from '../../server/databaseStorage.js';
+// Using dynamic imports for ESM compatibility
+import * as authModule from '../../server/auth.js';
+import * as routesModule from '../../server/routes.js';
+import * as dbModule from '../../server/databaseStorage.js';
+
+// Extract the needed functions from the imported modules
+const { setupAuth } = authModule;
+const { registerRoutes } = routesModule;
+const { DatabaseStorage } = dbModule;
 
 // Initialize the app
 const app = express();
@@ -34,7 +39,7 @@ let memorySessionStore = new MemoryStore({
 });
 
 // Create database storage instance
-let dbStorage: DatabaseStorage | null = null;
+let dbStorage: any = null;
 
 try {
   // Initialize database storage
