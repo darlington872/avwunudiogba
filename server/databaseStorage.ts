@@ -43,14 +43,24 @@ export class DatabaseStorage implements IStorage {
     
     console.log("Using session store from storage with Neon.tech connection");
     
-    // Initialize default data
-    this.initializeDefaultData();
+    // Initialize default data asynchronously to prevent startup failure
+    this.initializeDefaultData().catch(err => {
+      console.error("Error initializing default data:", err.message);
+      console.error("The application will continue to run, but database initialization failed.");
+      console.error("Please ensure the database is properly migrated with 'npm run db:push'");
+    });
   }
 
   private async initializeDefaultData() {
-    await this.initializeDefaultSettings();
-    await this.initializeDefaultServices();
-    await this.initializeDefaultCountries();
+    try {
+      await this.initializeDefaultSettings();
+      await this.initializeDefaultServices();
+      await this.initializeDefaultCountries();
+      console.log("Database initialization completed successfully");
+    } catch (error) {
+      console.error("Database initialization error:", error);
+      throw error;
+    }
   }
 
   private async initializeDefaultSettings() {
