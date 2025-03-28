@@ -87,7 +87,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 />
               </svg>
             </button>
-            <h1 className="text-lg font-bold vibrant-gradient-text">ETHERDOXSHEFZYSMS</h1>
+            <h1 className="text-lg font-bold vibrant-gradient-text">ETHERVOX SMS</h1>
           </div>
           {user && (
             <div className="flex items-center space-x-3">

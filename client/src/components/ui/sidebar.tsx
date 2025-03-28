@@ -54,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, adminMode = false })
         {/* Content with relative position to be above the effects */}
         <div className="relative z-10 flex-1 flex flex-col h-full overflow-y-auto">
           <div className="flex items-center justify-between px-4 mb-8">
-            <h1 className="text-lg font-bold vibrant-gradient-text">ETHERDOXSHEFZYSMS</h1>
+            <h1 className="text-lg font-bold vibrant-gradient-text">ETHERVOX SMS</h1>
             <button
               onClick={onClose}
               type="button"
