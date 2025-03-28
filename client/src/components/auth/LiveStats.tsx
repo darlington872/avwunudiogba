@@ -85,10 +85,12 @@ const LiveStats: React.FC = () => {
               <div className="stats-value text-xl md:text-2xl font-bold text-white">
                 {stat.suffix}{formatNumber(stat.value)}
               </div>
-              <div className="flex items-center justify-center gap-1.5 text-green-400 text-xs mt-2 bg-green-900/30 py-1 px-2 rounded-full mx-auto w-fit">
-                <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                Live Updates
-                <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+              <div className="flex items-center justify-center gap-1.5 mt-2 mx-auto w-fit">
+                <div className="text-green-400 text-xs font-medium bg-green-900/40 py-1.5 px-4 rounded-full border border-green-500/40 flex items-center gap-1.5 shadow-md shadow-green-900/30 relative overflow-hidden hover:bg-green-900/50 transition-all duration-300">
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/10 to-transparent skeleton-wave"></span>
+                  <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse relative z-10"></span>
+                  <span className="relative z-10">Live Updates</span>
+                </div>
               </div>
             </div>
           ))}

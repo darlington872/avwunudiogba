@@ -1,11 +1,15 @@
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
-import { Pool } from "pg";
+import pkg from "pg";
+const { Pool } = pkg;
 import * as schema from "../shared/schema";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: true, // Use SSL for CockroachDB
+  }
 });
 
 const db = drizzle(pool, { schema });

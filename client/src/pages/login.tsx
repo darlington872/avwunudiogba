@@ -63,7 +63,11 @@ const LoginPage: React.FC = () => {
             {/* Site Logo and Stats - First Elements */}
             <div className="text-center mb-8">
               <div className="flex justify-center mb-4">
-                <img src={logoWithText} alt="ETHERVOX SMS" className="h-20 md:h-32 transition-all duration-300 hover:scale-105" />
+                <img 
+                  src={logoWithText} 
+                  alt="ETHERVOX SMS" 
+                  className="h-28 md:h-44 transition-all duration-300 hover:scale-105 drop-shadow-lg filter brightness-110" 
+                />
               </div>
               <p className="text-xs text-purple-300 mb-4 tracking-widest uppercase font-light drop-shadow-md italic">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400">
