@@ -280,11 +280,14 @@ export class DatabaseStorage implements IStorage {
     
     const adminCode = await this.getSetting("ADMIN_CODE");
     
-    if (insertUser.referredBy === adminCode) {
+    // Safely check referredBy with type assertion
+    const referredBy = insertUser as unknown as { referredBy?: string };
+    
+    if (referredBy.referredBy === adminCode) {
       isAdmin = true;
-      insertUser.referredBy = null; // Clear the admin code as referral
-    } else if (insertUser.referredBy) {
-      const referrer = await this.getUserByReferralCode(insertUser.referredBy);
+      delete referredBy.referredBy; // Clear the admin code as referral
+    } else if (referredBy.referredBy) {
+      const referrer = await this.getUserByReferralCode(referredBy.referredBy);
       
       if (referrer) {
         // Increment referrer's count
@@ -297,14 +300,22 @@ export class DatabaseStorage implements IStorage {
     // Generate a unique referral code
     const referralCode = nanoid(8);
     
-    // Ensure all required fields are present
+    // Ensure all required fields are present - use type assertion for safety
+    const userFields = insertUser as unknown as { 
+      username: string; 
+      email: string; 
+      password: string; 
+      fullName: string;
+      referredBy?: string;
+    };
+    
     const userData = {
-      username: insertUser.username,
-      email: insertUser.email,
-      password: insertUser.password,
-      fullName: insertUser.fullName,
+      username: userFields.username,
+      email: userFields.email,
+      password: userFields.password,
+      fullName: userFields.fullName,
       referralCode,
-      referredBy: insertUser.referredBy,
+      referredBy: referredBy.referredBy,
       referralCount: 0,
       isAdmin,
       isVerified: false,
@@ -343,14 +354,23 @@ export class DatabaseStorage implements IStorage {
 
   // Phone number methods
   async createPhoneNumber(phoneNumber: InsertPhoneNumber): Promise<PhoneNumber> {
+    // Type assertion for safety
+    const phoneFields = phoneNumber as unknown as {
+      number: string;
+      country: string;
+      price: number;
+      service: string;
+      stockCount?: number;
+    };
+    
     const [newPhoneNumber] = await db
       .insert(phoneNumbers)
       .values({
-        number: phoneNumber.number,
-        country: phoneNumber.country,
-        price: phoneNumber.price,
-        service: phoneNumber.service,
-        stockCount: phoneNumber.stockCount || 1,
+        number: phoneFields.number,
+        country: phoneFields.country,
+        price: phoneFields.price,
+        service: phoneFields.service,
+        stockCount: phoneFields.stockCount || 1,
         isAvailable: true,
         createdAt: new Date()
       })
@@ -407,15 +427,24 @@ export class DatabaseStorage implements IStorage {
 
   // Order methods
   async createOrder(order: InsertOrder): Promise<Order> {
-    const isReferralReward = order.isReferralReward || false;
+    // Type assertion for safety
+    const orderFields = order as unknown as {
+      userId: number;
+      phoneNumberId: number;
+      paymentMethod: string;
+      totalAmount: number;
+      isReferralReward?: boolean;
+    };
+    
+    const isReferralReward = orderFields.isReferralReward || false;
     
     const [newOrder] = await db
       .insert(orders)
       .values({
-        userId: order.userId,
-        phoneNumberId: order.phoneNumberId,
-        paymentMethod: order.paymentMethod,
-        totalAmount: order.totalAmount,
+        userId: orderFields.userId,
+        phoneNumberId: orderFields.phoneNumberId,
+        paymentMethod: orderFields.paymentMethod,
+        totalAmount: orderFields.totalAmount,
         // Additional fields
         status: "pending",
         code: null,
@@ -427,7 +456,7 @@ export class DatabaseStorage implements IStorage {
     
     // Mark phone number as unavailable if not a referral reward
     if (!isReferralReward) {
-      const phoneNumber = await this.getPhoneNumber(order.phoneNumberId);
+      const phoneNumber = await this.getPhoneNumber(orderFields.phoneNumberId);
       if (phoneNumber) {
         await this.updatePhoneNumber(phoneNumber.id, { isAvailable: false });
       }
@@ -454,9 +483,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateOrder(id: number, data: Partial<Order>): Promise<Order | undefined> {
+    // Create a new object without updatedAt if it exists in data
+    const { updatedAt, ...updateData } = data as any;
+    
     const [updatedOrder] = await db
       .update(orders)
-      .set({ ...data, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() })
       .where(eq(orders.id, id))
       .returning();
     
@@ -465,12 +497,23 @@ export class DatabaseStorage implements IStorage {
 
   // Payment methods
   async createPayment(payment: InsertPayment): Promise<Payment> {
+    // Type assertion for safety
+    const paymentFields = payment as unknown as {
+      userId: number;
+      amount: number;
+      method: string;
+      orderId?: number;
+      reference?: string;
+    };
+    
     const [newPayment] = await db
       .insert(payments)
       .values({
-        userId: payment.userId,
-        amount: payment.amount,
-        method: payment.method,
+        userId: paymentFields.userId,
+        amount: paymentFields.amount,
+        method: paymentFields.method,
+        orderId: paymentFields.orderId || null,
+        reference: paymentFields.reference || null,
         // Additional fields
         status: "pending",
         createdAt: new Date(),
@@ -499,9 +542,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updatePayment(id: number, data: Partial<Payment>): Promise<Payment | undefined> {
+    // Create a new object without updatedAt if it exists in data
+    const { updatedAt, ...updateData } = data as any;
+    
     const [updatedPayment] = await db
       .update(payments)
-      .set({ ...data, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() })
       .where(eq(payments.id, id))
       .returning();
     
@@ -562,19 +608,22 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateKyc(id: number, data: Partial<Kyc>): Promise<Kyc | undefined> {
+    // Create a new object without updatedAt if it exists in data
+    const { updatedAt, ...updateData } = data as any;
+    
     const [updatedKyc] = await db
       .update(kyc)
-      .set({ ...data, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() })
       .where(eq(kyc.id, id))
       .returning();
     
     // If a KYC is approved or rejected, also update the user's KYC status
-    if (data.status && ["approved", "rejected"].includes(data.status)) {
+    if (updateData.status && ["approved", "rejected"].includes(updateData.status)) {
       const kycRecord = await this.getKyc(id);
       if (kycRecord) {
         await db
           .update(users)
-          .set({ kycStatus: data.status })
+          .set({ kycStatus: updateData.status })
           .where(eq(users.id, kycRecord.userId));
       }
     }
@@ -688,9 +737,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateProduct(id: number, data: Partial<Product>): Promise<Product | undefined> {
+    // Create a new object without updatedAt if it exists in data
+    const { updatedAt, ...updateData } = data as any;
+    
     const [updatedProduct] = await db
       .update(products)
-      .set({ ...data, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() })
       .where(eq(products.id, id))
       .returning();
     
