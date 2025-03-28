@@ -28,20 +28,44 @@ import connectPg from "connect-pg-simple";
 import { db, pool } from "./db";
 import { eq, desc, and, asc, isNull, not, gt, lt, like, sql, gte, lte } from "drizzle-orm";
 import { IStorage } from "./storage";
+import MemoryStore from "memorystore";
 
 const PostgresSessionStore = connectPg(session);
+const MemoryStoreFactory = MemoryStore(session);
 
 export class DatabaseStorage implements IStorage {
   sessionStore: session.Store;
 
   constructor() {
-    // Initialize PostgreSQL session store
-    this.sessionStore = new PostgresSessionStore({ 
-      pool,
-      createTableIfMissing: true
-    });
-    
-    console.log("Using session store from storage with Neon.tech connection");
+    try {
+      // Custom table creation for CockroachDB compatibility
+      pool.query(`
+        CREATE TABLE IF NOT EXISTS "session" (
+          "sid" VARCHAR NOT NULL PRIMARY KEY,
+          "sess" JSON NOT NULL,
+          "expire" TIMESTAMP(6) NOT NULL
+        )
+      `).catch(err => {
+        console.warn("Error creating session table:", err.message);
+      });
+      
+      // Initialize PostgreSQL session store with CockroachDB compatibility
+      this.sessionStore = new PostgresSessionStore({ 
+        pool,
+        tableName: 'session',
+        createTableIfMissing: false,  // We create it manually above
+        schemaName: 'public'
+      });
+      
+      console.log("Using PostgreSQL session store with CockroachDB connection");
+    } catch (error) {
+      console.warn("Failed to initialize PostgreSQL session store, falling back to memory store:", error);
+      // Fallback to memory store if there's an issue with PostgreSQL
+      this.sessionStore = new MemoryStoreFactory({
+        checkPeriod: 86400000 // prune expired entries every 24h
+      });
+      console.log("Using memory session store as fallback");
+    }
     
     // Initialize default data asynchronously to prevent startup failure
     this.initializeDefaultData().catch(err => {
