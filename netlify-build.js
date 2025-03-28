@@ -18,6 +18,7 @@ const packageJson = {
   "version": "1.0.0",
   "description": "Netlify functions for Ethervox SMS",
   "main": "api.js",
+  "type": "module",
   "dependencies": {
     "@neondatabase/serverless": "^0.9.0",
     "dotenv": "^16.4.5",

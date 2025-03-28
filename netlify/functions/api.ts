@@ -4,14 +4,17 @@ import '../setup-aliases.js';
 // Import dotenv early to load environment variables
 import 'dotenv/config';
 
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
+import session from 'express-session';
+import passport from 'passport';
+
+// Dynamic imports for ESM compatibility
 import { setupAuth } from '../../server/auth.js';
 import { registerRoutes } from '../../server/routes.js';
 import { DatabaseStorage } from '../../server/databaseStorage.js';
-import session from 'express-session';
-import passport from 'passport';
 
 // Initialize the app
 const app = express();

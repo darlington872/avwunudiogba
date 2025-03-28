@@ -21,7 +21,7 @@ import {
   services,
   countries,
   aiChats
-} from "../shared/schema.js";
+} from "@shared/schema.js";
 import { nanoid } from "nanoid";
 import session from "express-session";
 import createMemoryStore from "memorystore";
@@ -438,7 +438,11 @@ export class MemStorage implements IStorage {
     const id = this.currentPhoneNumberId++;
     const newPhoneNumber: PhoneNumber = {
       id,
-      ...phoneNumber,
+      number: phoneNumber.number,
+      country: phoneNumber.country,
+      service: phoneNumber.service,
+      price: phoneNumber.price,
+      stockCount: phoneNumber.stockCount || 1,
       isAvailable: true,
       createdAt: new Date()
     };
@@ -481,7 +485,10 @@ export class MemStorage implements IStorage {
     const id = this.currentOrderId++;
     const newOrder: Order = {
       id,
-      ...order,
+      userId: order.userId,
+      phoneNumberId: order.phoneNumberId,
+      paymentMethod: order.paymentMethod,
+      totalAmount: order.totalAmount,
       status: "pending",
       code: null,
       isReferralReward: order.isReferralReward || false,
@@ -528,7 +535,9 @@ export class MemStorage implements IStorage {
     const id = this.currentPaymentId++;
     const newPayment: Payment = {
       id,
-      ...payment,
+      userId: payment.userId,
+      amount: payment.amount,
+      method: payment.method,
       status: "pending",
       orderId: payment.orderId || null,
       reference: payment.reference || null,
@@ -581,7 +590,16 @@ export class MemStorage implements IStorage {
     const id = this.currentKycId++;
     const newKyc: Kyc = {
       id,
-      ...kyc,
+      userId: kyc.userId,
+      fullName: kyc.fullName,
+      address: kyc.address,
+      city: kyc.city,
+      postalCode: kyc.postalCode,
+      country: kyc.country,
+      idType: kyc.idType,
+      idFront: kyc.idFront,
+      idBack: kyc.idBack,
+      selfie: kyc.selfie,
       status: "pending",
       createdAt: new Date(),
       updatedAt: new Date()
@@ -637,7 +655,9 @@ export class MemStorage implements IStorage {
     const id = this.currentActivityId++;
     const newActivity: Activity = {
       id,
-      ...activity,
+      userId: activity.userId,
+      action: activity.action,
+      details: activity.details,
       createdAt: new Date()
     };
     
@@ -684,7 +704,12 @@ export class MemStorage implements IStorage {
     
     const newProduct: Product = {
       id,
-      ...product,
+      userId: product.userId,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      images: product.images,
       isAdminApproved: isAdmin, // Auto-approve if admin
       status: isAdmin ? "active" : "pending",
       createdAt: new Date(),
@@ -737,7 +762,10 @@ export class MemStorage implements IStorage {
     const id = this.currentServiceId++;
     const newService: Service = {
       id,
-      ...service,
+      name: service.name,
+      slug: service.slug,
+      description: service.description,
+      icon: service.icon,
       isActive: true,
       createdAt: new Date()
     };
@@ -782,7 +810,9 @@ export class MemStorage implements IStorage {
     const id = this.currentCountryId++;
     const newCountry: Country = {
       id,
-      ...country,
+      name: country.name,
+      code: country.code,
+      flag: country.flag,
       isActive: true,
       createdAt: new Date()
     };
@@ -827,7 +857,9 @@ export class MemStorage implements IStorage {
     const id = this.currentAiChatId++;
     const newChat: AiChat = {
       id,
-      ...chat,
+      userId: chat.userId,
+      message: chat.message,
+      response: chat.response,
       createdAt: new Date()
     };
     

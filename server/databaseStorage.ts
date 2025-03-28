@@ -21,7 +21,7 @@ import {
   services,
   countries,
   aiChats
-} from "../shared/schema.js";
+} from "@shared/schema.js";
 import { nanoid } from "nanoid";
 import session from "express-session";
 import connectPg from "connect-pg-simple";
@@ -297,9 +297,14 @@ export class DatabaseStorage implements IStorage {
     // Generate a unique referral code
     const referralCode = nanoid(8);
     
+    // Ensure all required fields are present
     const userData = {
-      ...insertUser,
+      username: insertUser.username,
+      email: insertUser.email,
+      password: insertUser.password,
+      fullName: insertUser.fullName,
       referralCode,
+      referredBy: insertUser.referredBy,
       referralCount: 0,
       isAdmin,
       isVerified: false,
@@ -341,7 +346,11 @@ export class DatabaseStorage implements IStorage {
     const [newPhoneNumber] = await db
       .insert(phoneNumbers)
       .values({
-        ...phoneNumber,
+        number: phoneNumber.number,
+        country: phoneNumber.country,
+        price: phoneNumber.price,
+        service: phoneNumber.service,
+        stockCount: phoneNumber.stockCount || 1,
         isAvailable: true,
         createdAt: new Date()
       })
@@ -385,29 +394,39 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deletePhoneNumber(id: number): Promise<boolean> {
-    const result = await db
-      .delete(phoneNumbers)
-      .where(eq(phoneNumbers.id, id));
-    
-    return result.count > 0;
+    try {
+      await db
+        .delete(phoneNumbers)
+        .where(eq(phoneNumbers.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting phone number:', error);
+      return false;
+    }
   }
 
   // Order methods
   async createOrder(order: InsertOrder): Promise<Order> {
+    const isReferralReward = order.isReferralReward || false;
+    
     const [newOrder] = await db
       .insert(orders)
       .values({
-        ...order,
+        userId: order.userId,
+        phoneNumberId: order.phoneNumberId,
+        paymentMethod: order.paymentMethod,
+        totalAmount: order.totalAmount,
+        // Additional fields
         status: "pending",
         code: null,
-        isReferralReward: order.isReferralReward || false,
+        isReferralReward: isReferralReward,
         createdAt: new Date(),
         updatedAt: new Date()
       })
       .returning();
     
     // Mark phone number as unavailable if not a referral reward
-    if (!order.isReferralReward) {
+    if (!isReferralReward) {
       const phoneNumber = await this.getPhoneNumber(order.phoneNumberId);
       if (phoneNumber) {
         await this.updatePhoneNumber(phoneNumber.id, { isAvailable: false });
@@ -449,7 +468,10 @@ export class DatabaseStorage implements IStorage {
     const [newPayment] = await db
       .insert(payments)
       .values({
-        ...payment,
+        userId: payment.userId,
+        amount: payment.amount,
+        method: payment.method,
+        // Additional fields
         status: "pending",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -499,7 +521,17 @@ export class DatabaseStorage implements IStorage {
     const [newKyc] = await db
       .insert(kyc)
       .values({
-        ...kycData,
+        userId: kycData.userId,
+        fullName: kycData.fullName,
+        address: kycData.address,
+        city: kycData.city,
+        postalCode: kycData.postalCode,
+        country: kycData.country,
+        idType: kycData.idType,
+        idFront: kycData.idFront,
+        idBack: kycData.idBack,
+        selfie: kycData.selfie,
+        // Additional fields
         status: "pending",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -621,8 +653,15 @@ export class DatabaseStorage implements IStorage {
     const [newProduct] = await db
       .insert(products)
       .values({
-        ...product,
-        isApproved: product.isApproved || false,
+        userId: product.userId,
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        category: product.category,
+        images: product.images,
+        // Additional fields
+        isAdminApproved: false,
+        status: "pending",
         createdAt: new Date(),
         updatedAt: new Date()
       })
@@ -659,18 +698,22 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteProduct(id: number): Promise<boolean> {
-    const result = await db
-      .delete(products)
-      .where(eq(products.id, id));
-    
-    return result.count > 0;
+    try {
+      await db
+        .delete(products)
+        .where(eq(products.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      return false;
+    }
   }
 
   async getApprovedProducts(): Promise<Product[]> {
     return db
       .select()
       .from(products)
-      .where(eq(products.isApproved, true))
+      .where(eq(products.isAdminApproved, true))
       .orderBy(desc(products.createdAt));
   }
 
@@ -678,7 +721,7 @@ export class DatabaseStorage implements IStorage {
     return db
       .select()
       .from(products)
-      .where(eq(products.isApproved, false))
+      .where(eq(products.isAdminApproved, false))
       .orderBy(desc(products.createdAt));
   }
 
@@ -687,8 +730,12 @@ export class DatabaseStorage implements IStorage {
     const [newService] = await db
       .insert(services)
       .values({
-        ...service,
-        isActive: service.isActive || true,
+        name: service.name,
+        slug: service.slug,
+        description: service.description,
+        icon: service.icon,
+        // Additional fields
+        isActive: true,
         createdAt: new Date()
       })
       .returning();
@@ -744,8 +791,11 @@ export class DatabaseStorage implements IStorage {
     const [newCountry] = await db
       .insert(countries)
       .values({
-        ...country,
-        isActive: country.isActive || true,
+        name: country.name,
+        code: country.code,
+        flag: country.flag,
+        // Additional fields
+        isActive: true,
         createdAt: new Date()
       })
       .returning();
@@ -801,7 +851,10 @@ export class DatabaseStorage implements IStorage {
     const [newChat] = await db
       .insert(aiChats)
       .values({
-        ...chat,
+        userId: chat.userId,
+        message: chat.message,
+        response: chat.response,
+        // Additional fields
         createdAt: new Date()
       })
       .returning();
