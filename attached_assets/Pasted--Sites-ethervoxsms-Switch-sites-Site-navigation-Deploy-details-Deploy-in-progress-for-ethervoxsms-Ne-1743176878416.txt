@@ -1,0 +1,77 @@
+
+Sites
+ethervoxsms
+Switch sites
+Site navigation
+Deploy details
+Deploy in progress for ethervoxsms
+Netlify’s robots are busy building and deploying your site to our CDN.
+Today at 4:30 PM
+Production: main@HEAD
+Cancel deploy
+Deploy settings
+Fancy a game while you wait?
+We’re on a mission to find the cutest emojis.
+Play game
+Deploy log
+
+
+
+Initializing
+Complete
+Building
+Failed
+4:31:27 PM: Netlify Build                                                 
+4:31:27 PM: ────────────────────────────────────────────────────────────────
+4:31:27 PM: ​
+4:31:27 PM: ❯ Version
+4:31:27 PM:   @netlify/build 30.0.6
+4:31:27 PM: ​
+4:31:27 PM: ❯ Flags
+4:31:27 PM:   accountId: 67dc4ec32b79cd3c5e86872c
+4:31:27 PM:   baseRelDir: true
+4:31:27 PM:   buildId: 67e6c080be5b214d2e06a684
+4:31:27 PM:   deployId: 67e6c080be5b214d2e06a686
+4:31:27 PM: ​
+4:31:27 PM: ❯ Current directory
+4:31:27 PM:   /opt/build/repo
+4:31:27 PM: ​
+4:31:27 PM: ❯ Config file
+4:31:27 PM:   /opt/build/repo/netlify.toml
+4:31:27 PM: ​
+4:31:27 PM: ❯ Context
+4:31:27 PM:   production
+4:31:27 PM: ​
+4:31:27 PM: build.command from netlify.toml                               
+4:31:27 PM: ────────────────────────────────────────────────────────────────
+4:31:27 PM: ​
+4:31:27 PM: $ node netlify-build.js && npm run build && tsc netlify/functions/api.ts --esModuleInterop --skipLibCheck
+4:31:28 PM: Netlify build setup completed successfully.
+4:31:28 PM: > rest-express@1.0.0 build
+4:31:28 PM: > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+4:31:28 PM: vite v5.4.14 building for production...
+4:31:28 PM: transforming...
+4:31:32 PM: ✓ 2069 modules transformed.
+4:31:32 PM: rendering chunks...
+4:31:32 PM: computing gzip size...
+4:31:32 PM: ../dist/public/index.html                                  2.16 kB │ gzip:   0.89 kB
+4:31:32 PM: ../dist/public/assets/ethervox-globe-small-t1wqFhaA.svg    2.36 kB │ gzip:   0.71 kB
+4:31:32 PM: ../dist/public/assets/index-B23F95P1.css                  94.57 kB │ gzip:  15.72 kB
+4:31:32 PM: ../dist/public/assets/index-CLY6yKko.js                  617.58 kB │ gzip: 174.57 kB
+4:31:32 PM: 
+4:31:32 PM: (!) Some chunks are larger than 500 kB after minification. Consider:
+4:31:32 PM: - Using dynamic import() to code-split the application
+4:31:32 PM: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+4:31:32 PM: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+4:31:32 PM: ✓ built in 4.05s
+4:31:32 PM:   dist/index.js  68.7kb
+4:31:32 PM: ⚡ Done in 19ms
+4:31:34 PM: server/auth.ts(8,36): error TS2307: Cannot find module '@shared/schema' or its corresponding type declarations.
+4:31:34 PM: server/auth.ts(91,35): error TS2339: Property 'id' does not exist on type 'User'.
+4:31:34 PM: server/auth.ts(92,21): error TS2339: Property 'id' does not exist on type 'User'.
+4:31:34 PM: server/auth.ts(183,37): error TS2339: Property 'username' does not exist on type 'User'.
+4:31:34 PM: server/auth.ts(183,59): error TS2339: Property 'id' does not exist on type 'User'.
+4:31:34 PM: server/auth.ts(186,17): error TS2339: Property 'password' does not exist on type 'User'.
+4:31:34 PM: server/auth.ts(215,15): error TS2339: Property 'password' does not exist on type 'User'.
+4:31:34 PM: server/auth.ts(216,65): error TS2339: Property 'id' does not exist on type 'User'.
+4:31:34 PM: server/databaseStorage.ts(24,8): error TS2307: Cannot find module '@shared/schema' or its corresponding typ
