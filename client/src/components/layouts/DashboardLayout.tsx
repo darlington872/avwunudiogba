@@ -52,7 +52,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex dashboard-texture-bg font-sans antialiased">
+    <div className="min-h-screen flex phone-texture-bg font-sans antialiased">
       {/* Use sidebar on larger screens */}
       <div className="hidden md:block">
         <Sidebar 

@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen flex font-sans antialiased">
       <Sidebar isOpen={false} onClose={() => {}} />
       
-      <div className="flex-1 overflow-hidden auth-texture-bg">
+      <div className="flex-1 overflow-hidden phone-texture-bg">
         <div className="overflow-auto h-screen">
           <div className="container mx-auto px-4 py-6">
             {/* Site Name and Stats - First Elements */}
