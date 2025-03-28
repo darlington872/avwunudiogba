@@ -28,9 +28,12 @@ declare global {
   }
 }
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express, customStorage: any = null): Promise<Server | Express> {
   const router = express.Router();
   const httpServer = createServer(app);
+  
+  // Use provided storage if available (for Netlify Functions)
+  const storageToUse = customStorage || storage;
   
   // Set up authentication with Passport
   setupAuth(app);
@@ -86,13 +89,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const userData = insertUserSchema.parse(req.body);
     
     // Check if user with email already exists
-    const existingEmail = await storage.getUserByEmail(userData.email);
+    const existingEmail = await storageToUse.getUserByEmail(userData.email);
     if (existingEmail) {
       return res.status(400).json({ message: "Email already in use" });
     }
     
     // Check if username is taken
-    const existingUsername = await storage.getUserByUsername(userData.username);
+    const existingUsername = await storageToUse.getUserByUsername(userData.username);
     if (existingUsername) {
       return res.status(400).json({ message: "Username already taken" });
     }
@@ -100,10 +103,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Check if referral code is valid when provided
     if (userData.referredBy) {
       // Check if it's the admin code
-      const adminCode = await storage.getSetting("ADMIN_CODE");
+      const adminCode = await storageToUse.getSetting("ADMIN_CODE");
       
       if (userData.referredBy !== adminCode) {
-        const referrer = await storage.getUserByReferralCode(userData.referredBy);
+        const referrer = await storageToUse.getUserByReferralCode(userData.referredBy);
         if (!referrer) {
           return res.status(400).json({ message: "Invalid referral code" });
         }
@@ -114,7 +117,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // For demo, we'll just prefix it to simulate hashing
     userData.password = `hashed_${userData.password}`;
     
-    const newUser = await storage.createUser(userData);
+    const newUser = await storageToUse.createUser(userData);
     
     // Create a simple auth token
     const hash = crypto
@@ -126,7 +129,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const token = `${newUser.id}:${hash}`;
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: newUser.id,
       action: "User registration",
       status: "Completed"
@@ -149,7 +152,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "Email and password are required" });
     }
     
-    const user = await storage.getUserByEmail(email);
+    const user = await storageToUse.getUserByEmail(email);
     
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -175,7 +178,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const token = `${user.id}:${hash}`;
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: user.id,
       action: "User login",
       status: "Completed"
@@ -193,7 +196,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // User Routes
   router.get('/user/profile', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const user = await storage.getUser(req.userId!);
+    const user = await storageToUse.getUser(req.userId!);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -206,18 +209,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
 
   router.get('/user/activities', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const activities = await storage.getUserActivities(req.userId!);
+    const activities = await storageToUse.getUserActivities(req.userId!);
     res.json(activities);
   }));
 
   router.get('/user/referrals', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const user = await storage.getUser(req.userId!);
+    const user = await storageToUse.getUser(req.userId!);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     
-    const referrals = await storage.getReferredUsers(user.referralCode);
+    const referrals = await storageToUse.getReferredUsers(user.referralCode);
     
     // Map referrals to remove sensitive information
     const sanitizedReferrals = referrals.map(referral => {
@@ -230,7 +233,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Phone Number Routes
   router.get('/phone-numbers', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const phoneNumbers = await storage.getAvailablePhoneNumbers();
+    const phoneNumbers = await storageToUse.getAvailablePhoneNumbers();
     res.json(phoneNumbers);
   }));
 
@@ -241,8 +244,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       userId: req.userId
     });
     
-    const user = await storage.getUser(req.userId!);
-    const phoneNumber = await storage.getPhoneNumber(orderData.phoneNumberId);
+    const user = await storageToUse.getUser(req.userId!);
+    const phoneNumber = await storageToUse.getPhoneNumber(orderData.phoneNumberId);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -259,7 +262,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Check if it's a referral reward
     if (orderData.isReferralReward) {
       // Get referrals needed from settings
-      const referralsNeededStr = await storage.getSetting("REFERRALS_NEEDED") || "20";
+      const referralsNeededStr = await storageToUse.getSetting("REFERRALS_NEEDED") || "20";
       const referralsNeeded = parseInt(referralsNeededStr);
       
       if (user.referralCount < referralsNeeded) {
@@ -271,14 +274,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Check if KYC is required for referral rewards
-      const kycRequired = (await storage.getSetting("KYC_REQUIRED_FOR_REFERRAL") || "true") === "true";
+      const kycRequired = (await storageToUse.getSetting("KYC_REQUIRED_FOR_REFERRAL") || "true") === "true";
       
       if (kycRequired && user.kycStatus !== "approved") {
         return res.status(400).json({ message: "KYC verification required to claim referral rewards" });
       }
       
       // Deduct from referral count
-      await storage.updateUser(user.id, {
+      await storageToUse.updateUser(user.id, {
         referralCount: user.referralCount - referralsNeeded
       });
       
@@ -295,7 +298,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Deduct from balance
-      await storage.updateUser(user.id, {
+      await storageToUse.updateUser(user.id, {
         balance: user.balance - phoneNumber.price
       });
       
@@ -304,10 +307,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Create the order
-    const newOrder = await storage.createOrder(orderData);
+    const newOrder = await storageToUse.createOrder(orderData);
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: user.id,
       action: orderData.isReferralReward 
         ? "Claimed free number with referrals" 
@@ -332,13 +335,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
 
   router.get('/orders', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const orders = await storage.getUserOrders(req.userId!);
+    const orders = await storageToUse.getUserOrders(req.userId!);
     res.json(orders);
   }));
 
   router.get('/orders/:id', authenticate, handleErrors(async (req: Request, res: Response) => {
     const orderId = parseInt(req.params.id);
-    const order = await storage.getOrder(orderId);
+    const order = await storageToUse.getOrder(orderId);
     
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
@@ -359,7 +362,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       userId: req.userId
     });
     
-    const user = await storage.getUser(req.userId!);
+    const user = await storageToUse.getUser(req.userId!);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -367,7 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     // For order payments, verify the order
     if (paymentData.orderId) {
-      const order = await storage.getOrder(paymentData.orderId);
+      const order = await storageToUse.getOrder(paymentData.orderId);
       
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
@@ -386,10 +389,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     paymentData.reference = `PAY-${nanoid(8)}`;
     
     // Create the payment
-    const newPayment = await storage.createPayment(paymentData);
+    const newPayment = await storageToUse.createPayment(paymentData);
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: user.id,
       action: paymentData.orderId 
         ? "Payment submitted for order" 
@@ -401,7 +404,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
 
   router.get('/payments', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const payments = await storage.getUserPayments(req.userId!);
+    const payments = await storageToUse.getUserPayments(req.userId!);
     res.json(payments);
   }));
 
@@ -412,14 +415,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       userId: req.userId
     });
     
-    const user = await storage.getUser(req.userId!);
+    const user = await storageToUse.getUser(req.userId!);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     
     // Check if user already has submitted KYC
-    const existingKyc = await storage.getUserKyc(user.id);
+    const existingKyc = await storageToUse.getUserKyc(user.id);
     
     if (existingKyc) {
       return res.status(400).json({ 
@@ -429,13 +432,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Create the KYC record
-    const newKyc = await storage.createKyc(kycData);
+    const newKyc = await storageToUse.createKyc(kycData);
     
     // Update user KYC status
-    await storage.updateUser(user.id, { kycStatus: "pending" });
+    await storageToUse.updateUser(user.id, { kycStatus: "pending" });
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: user.id,
       action: "Submitted KYC documents",
       status: "Pending"
@@ -445,7 +448,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
 
   router.get('/kyc', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const kyc = await storage.getUserKyc(req.userId!);
+    const kyc = await storageToUse.getUserKyc(req.userId!);
     
     if (!kyc) {
       return res.status(404).json({ message: "KYC not found" });
@@ -456,7 +459,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Admin Routes
   router.get('/admin/users', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
-    const users = await storage.getAllUsers();
+    const users = await storageToUse.getAllUsers();
     
     // Remove passwords from response
     const sanitizedUsers = users.map(user => {
@@ -469,7 +472,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   router.patch('/admin/users/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const userId = parseInt(req.params.id);
-    const user = await storage.getUser(userId);
+    const user = await storageToUse.getUser(userId);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -494,14 +497,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "No valid fields to update" });
     }
     
-    const updatedUser = await storage.updateUser(userId, updates);
+    const updatedUser = await storageToUse.updateUser(userId, updates);
     
     if (!updatedUser) {
       return res.status(500).json({ message: "Failed to update user" });
     }
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Admin updated user ${userId}`,
       status: "Completed"
@@ -516,10 +519,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   router.post('/admin/phone-numbers', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const phoneNumberData = insertPhoneNumberSchema.parse(req.body);
     
-    const newPhoneNumber = await storage.createPhoneNumber(phoneNumberData);
+    const newPhoneNumber = await storageToUse.createPhoneNumber(phoneNumberData);
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Added new phone number: ${newPhoneNumber.number}`,
       status: "Completed"
@@ -529,13 +532,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
 
   router.get('/admin/phone-numbers', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
-    const phoneNumbers = await storage.getAllPhoneNumbers();
+    const phoneNumbers = await storageToUse.getAllPhoneNumbers();
     res.json(phoneNumbers);
   }));
 
   router.patch('/admin/phone-numbers/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const phoneNumberId = parseInt(req.params.id);
-    const phoneNumber = await storage.getPhoneNumber(phoneNumberId);
+    const phoneNumber = await storageToUse.getPhoneNumber(phoneNumberId);
     
     if (!phoneNumber) {
       return res.status(404).json({ message: "Phone number not found" });
@@ -555,14 +558,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "No valid fields to update" });
     }
     
-    const updatedPhoneNumber = await storage.updatePhoneNumber(phoneNumberId, updates);
+    const updatedPhoneNumber = await storageToUse.updatePhoneNumber(phoneNumberId, updates);
     
     if (!updatedPhoneNumber) {
       return res.status(500).json({ message: "Failed to update phone number" });
     }
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Updated phone number: ${updatedPhoneNumber.number}`,
       status: "Completed"
@@ -573,20 +576,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   router.delete('/admin/phone-numbers/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const phoneNumberId = parseInt(req.params.id);
-    const phoneNumber = await storage.getPhoneNumber(phoneNumberId);
+    const phoneNumber = await storageToUse.getPhoneNumber(phoneNumberId);
     
     if (!phoneNumber) {
       return res.status(404).json({ message: "Phone number not found" });
     }
     
-    const success = await storage.deletePhoneNumber(phoneNumberId);
+    const success = await storageToUse.deletePhoneNumber(phoneNumberId);
     
     if (!success) {
       return res.status(500).json({ message: "Failed to delete phone number" });
     }
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Deleted phone number: ${phoneNumber.number}`,
       status: "Completed"
@@ -600,10 +603,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const allOrders = [];
     
     // Iterate through all users and get their orders
-    const users = await storage.getAllUsers();
+    const users = await storageToUse.getAllUsers();
     
     for (const user of users) {
-      const userOrders = await storage.getUserOrders(user.id);
+      const userOrders = await storageToUse.getUserOrders(user.id);
       allOrders.push(...userOrders);
     }
     
@@ -619,7 +622,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   router.patch('/admin/orders/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const orderId = parseInt(req.params.id);
-    const order = await storage.getOrder(orderId);
+    const order = await storageToUse.getOrder(orderId);
     
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
@@ -639,7 +642,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "No valid fields to update" });
     }
     
-    const updatedOrder = await storage.updateOrder(orderId, updates);
+    const updatedOrder = await storageToUse.updateOrder(orderId, updates);
     
     if (!updatedOrder) {
       return res.status(500).json({ message: "Failed to update order" });
@@ -647,10 +650,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     // If order was completed, update the user's activity
     if (updates.status === "completed") {
-      const user = await storage.getUser(order.userId);
+      const user = await storageToUse.getUser(order.userId);
       
       if (user) {
-        await storage.createActivity({
+        await storageToUse.createActivity({
           userId: user.id,
           action: order.isReferralReward 
             ? "Claimed free number with referrals" 
@@ -661,7 +664,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Create admin activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Updated order ${orderId} status to ${updates.status}`,
       status: "Completed"
@@ -675,15 +678,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     let allPayments = [];
     
     if (pendingOnly) {
-      allPayments = await storage.getPendingPayments();
+      allPayments = await storageToUse.getPendingPayments();
     } else {
       // In a real app, you'd implement pagination and filtering
       
       // Iterate through all users and get their payments
-      const users = await storage.getAllUsers();
+      const users = await storageToUse.getAllUsers();
       
       for (const user of users) {
-        const userPayments = await storage.getUserPayments(user.id);
+        const userPayments = await storageToUse.getUserPayments(user.id);
         allPayments.push(...userPayments);
       }
     }
@@ -700,7 +703,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   router.patch('/admin/payments/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const paymentId = parseInt(req.params.id);
-    const payment = await storage.getPayment(paymentId);
+    const payment = await storageToUse.getPayment(paymentId);
     
     if (!payment) {
       return res.status(404).json({ message: "Payment not found" });
@@ -715,7 +718,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       status: req.body.status
     };
     
-    const updatedPayment = await storage.updatePayment(paymentId, updates);
+    const updatedPayment = await storageToUse.updatePayment(paymentId, updates);
     
     if (!updatedPayment) {
       return res.status(500).json({ message: "Failed to update payment" });
@@ -723,15 +726,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     // If payment was completed and NOT attached to an order, add the amount to the user's balance
     if (updates.status === "completed" && !payment.orderId) {
-      const user = await storage.getUser(payment.userId);
+      const user = await storageToUse.getUser(payment.userId);
       
       if (user) {
-        await storage.updateUser(user.id, {
+        await storageToUse.updateUser(user.id, {
           balance: user.balance + payment.amount
         });
         
         // Create user activity record
-        await storage.createActivity({
+        await storageToUse.createActivity({
           userId: user.id,
           action: "Added funds to account",
           status: "Completed"
@@ -740,7 +743,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Create admin activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Updated payment ${paymentId} status to ${updates.status}`,
       status: "Completed"
@@ -754,13 +757,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     let kycRecords = [];
     
     if (pendingOnly) {
-      kycRecords = await storage.getPendingKyc();
+      kycRecords = await storageToUse.getPendingKyc();
     } else {
       // In a real app, you'd implement pagination and filtering
-      const users = await storage.getAllUsers();
+      const users = await storageToUse.getAllUsers();
       
       for (const user of users) {
-        const userKyc = await storage.getUserKyc(user.id);
+        const userKyc = await storageToUse.getUserKyc(user.id);
         if (userKyc) {
           kycRecords.push(userKyc);
         }
@@ -779,7 +782,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   router.patch('/admin/kyc/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const kycId = parseInt(req.params.id);
-    const kyc = await storage.getKyc(kycId);
+    const kyc = await storageToUse.getKyc(kycId);
     
     if (!kyc) {
       return res.status(404).json({ message: "KYC record not found" });
@@ -794,21 +797,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       status: req.body.status
     };
     
-    const updatedKyc = await storage.updateKyc(kycId, updates);
+    const updatedKyc = await storageToUse.updateKyc(kycId, updates);
     
     if (!updatedKyc) {
       return res.status(500).json({ message: "Failed to update KYC record" });
     }
     
     // Create admin activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Updated KYC ${kycId} status to ${updates.status}`,
       status: "Completed"
     });
     
     // Create user activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: kyc.userId,
       action: "KYC verification",
       status: updates.status === "approved" ? "Approved" : "Rejected"
@@ -818,7 +821,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
 
   router.get('/admin/settings', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
-    const settings = await storage.getAllSettings();
+    const settings = await storageToUse.getAllSettings();
     res.json(settings);
   }));
 
@@ -833,7 +836,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     for (const [key, value] of Object.entries(updates)) {
       if (typeof value === "string") {
-        await storage.setSetting(key, value);
+        await storageToUse.setSetting(key, value);
         updated.push(key);
       }
     }
@@ -843,13 +846,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Create admin activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Updated system settings: ${updated.join(", ")}`,
       status: "Completed"
     });
     
-    const settings = await storage.getAllSettings();
+    const settings = await storageToUse.getAllSettings();
     res.json(settings);
   }));
 
@@ -863,7 +866,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // In a real app, you would send notifications to all users
     // For this demo, we'll just create an activity record
     
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: req.userId!,
       action: `Broadcast message: ${title}`,
       status: "Completed"
@@ -874,13 +877,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Service Routes
   router.get('/services', handleErrors(async (req: Request, res: Response) => {
-    const services = await storage.getActiveServices();
+    const services = await storageToUse.getActiveServices();
     res.json(services);
   }));
   
   router.get('/services/:id', handleErrors(async (req: Request, res: Response) => {
     const serviceId = parseInt(req.params.id);
-    const service = await storage.getService(serviceId);
+    const service = await storageToUse.getService(serviceId);
     
     if (!service || !service.isActive) {
       return res.status(404).json({ message: "Service not found" });
@@ -891,13 +894,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Country Routes
   router.get('/countries', handleErrors(async (req: Request, res: Response) => {
-    const countries = await storage.getActiveCountries();
+    const countries = await storageToUse.getActiveCountries();
     res.json(countries);
   }));
   
   router.get('/countries/:id', handleErrors(async (req: Request, res: Response) => {
     const countryId = parseInt(req.params.id);
-    const country = await storage.getCountry(countryId);
+    const country = await storageToUse.getCountry(countryId);
     
     if (!country || !country.isActive) {
       return res.status(404).json({ message: "Country not found" });
@@ -908,13 +911,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Product Routes (Marketplace)
   router.get('/products', handleErrors(async (req: Request, res: Response) => {
-    const products = await storage.getApprovedProducts();
+    const products = await storageToUse.getApprovedProducts();
     res.json(products);
   }));
   
   router.get('/products/:id', handleErrors(async (req: Request, res: Response) => {
     const productId = parseInt(req.params.id);
-    const product = await storage.getProduct(productId);
+    const product = await storageToUse.getProduct(productId);
     
     if (!product || !product.isAdminApproved || product.status !== "active") {
       return res.status(404).json({ message: "Product not found" });
@@ -929,7 +932,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       userId: req.userId
     });
     
-    const user = await storage.getUser(req.userId!);
+    const user = await storageToUse.getUser(req.userId!);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -943,10 +946,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Admin-specific properties will be set in the storage method
     const isAdmin = user.isAdmin;
     
-    const newProduct = await storage.createProduct(productData);
+    const newProduct = await storageToUse.createProduct(productData);
     
     // Create activity record
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: user.id,
       action: "Uploaded new product to marketplace",
       status: user.isAdmin ? "Completed" : "Pending approval"
@@ -956,19 +959,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
   
   router.get('/user/products', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const products = await storage.getUserProducts(req.userId!);
+    const products = await storageToUse.getUserProducts(req.userId!);
     res.json(products);
   }));
   
   // Admin Product Management
   router.get('/admin/products', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
-    const pendingProducts = await storage.getPendingProducts();
+    const pendingProducts = await storageToUse.getPendingProducts();
     res.json(pendingProducts);
   }));
   
   router.patch('/admin/products/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const productId = parseInt(req.params.id);
-    const product = await storage.getProduct(productId);
+    const product = await storageToUse.getProduct(productId);
     
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
@@ -988,14 +991,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "No valid fields to update" });
     }
     
-    const updatedProduct = await storage.updateProduct(productId, updates);
+    const updatedProduct = await storageToUse.updateProduct(productId, updates);
     
     if (!updatedProduct) {
       return res.status(500).json({ message: "Failed to update product" });
     }
     
     // Create activity for the product owner
-    await storage.createActivity({
+    await storageToUse.createActivity({
       userId: product.userId,
       action: `Admin ${req.body.isAdminApproved ? "approved" : "updated"} your marketplace product`,
       status: "Completed"
@@ -1007,18 +1010,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin Service Management
   router.post('/admin/services', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const serviceData = insertServiceSchema.parse(req.body);
-    const newService = await storage.createService(serviceData);
+    const newService = await storageToUse.createService(serviceData);
     res.status(201).json(newService);
   }));
   
   router.get('/admin/services', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
-    const services = await storage.getAllServices();
+    const services = await storageToUse.getAllServices();
     res.json(services);
   }));
   
   router.patch('/admin/services/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const serviceId = parseInt(req.params.id);
-    const service = await storage.getService(serviceId);
+    const service = await storageToUse.getService(serviceId);
     
     if (!service) {
       return res.status(404).json({ message: "Service not found" });
@@ -1037,7 +1040,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "No valid fields to update" });
     }
     
-    const updatedService = await storage.updateService(serviceId, updates);
+    const updatedService = await storageToUse.updateService(serviceId, updates);
     
     if (!updatedService) {
       return res.status(500).json({ message: "Failed to update service" });
@@ -1049,18 +1052,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin Country Management
   router.post('/admin/countries', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const countryData = insertCountrySchema.parse(req.body);
-    const newCountry = await storage.createCountry(countryData);
+    const newCountry = await storageToUse.createCountry(countryData);
     res.status(201).json(newCountry);
   }));
   
   router.get('/admin/countries', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
-    const countries = await storage.getAllCountries();
+    const countries = await storageToUse.getAllCountries();
     res.json(countries);
   }));
   
   router.patch('/admin/countries/:id', authenticate, requireAdmin, handleErrors(async (req: Request, res: Response) => {
     const countryId = parseInt(req.params.id);
-    const country = await storage.getCountry(countryId);
+    const country = await storageToUse.getCountry(countryId);
     
     if (!country) {
       return res.status(404).json({ message: "Country not found" });
@@ -1079,7 +1082,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "No valid fields to update" });
     }
     
-    const updatedCountry = await storage.updateCountry(countryId, updates);
+    const updatedCountry = await storageToUse.updateCountry(countryId, updates);
     
     if (!updatedCountry) {
       return res.status(500).json({ message: "Failed to update country" });
@@ -1096,7 +1099,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ error: 'Message is required' });
     }
     
-    const user = await storage.getUser(req.userId!);
+    const user = await storageToUse.getUser(req.userId!);
     
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -1139,7 +1142,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Create the chat record with the response
-    const newChat = await storage.createAiChat({
+    const newChat = await storageToUse.createAiChat({
       userId: req.userId!,
       message,
       response
@@ -1150,7 +1153,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }));
   
   router.get('/ai-chat', authenticate, handleErrors(async (req: Request, res: Response) => {
-    const chats = await storage.getUserChats(req.userId!);
+    const chats = await storageToUse.getUserChats(req.userId!);
     res.json(chats);
   }));
   
@@ -1189,5 +1192,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register root endpoints
   app.use(rootRouter);
 
-  return httpServer;
+  // For Netlify Functions, we need to return the Express app, not the HTTP server
+  // Check if we're in a serverless environment (Netlify Functions)
+  const isServerless = process.env.NETLIFY === 'true';
+  
+  return isServerless ? app : httpServer;
 }
